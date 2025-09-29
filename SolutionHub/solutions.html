@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%230000ff'>💡</text></svg>">
+    <title>AI Services | Solution Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-color: #64ffda;
+            --dark-color: #0a192f;
+            --darker-color: #112240;
+            --text-color: #ccd6f6;
+            --light-text: #8892b0;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--dark-color) 0%, var(--darker-color) 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--dark-color) 0%, var(--darker-color) 100%);
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--primary-color);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+        
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--primary-color);
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        /* Access Form */
+        .access-form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .access-form {
+            background: rgba(30, 58, 92, 0.8);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--primary-color);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .form-logo {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-title {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .form-subtitle {
+            color: var(--light-text);
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: rgba(17, 34, 64, 0.8);
+            border: 1px solid #1e3a5c;
+            border-radius: 10px;
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(100, 255, 218, 0.2);
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--primary-color);
+            color: var(--dark-color);
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+        
+        .submit-btn:hover {
+            background: #52e0c4;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(100, 255, 218, 0.3);
+        }
+        
+        .form-footer {
+            margin-top: 2rem;
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+        
+        /* Main Content (Hidden Initially) */
+        .main-content {
+            display: none;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(10, 25, 47, 0.9), rgba(17, 34, 64, 0.9)), url('https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--text-color);
+            text-align: center;
+            padding: 10rem 0 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: var(--text-color);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--primary-color);
+            color: var(--dark-color);
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.4);
+        }
+        
+        .cta-button:hover {
+            background: #52e0c4;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(100, 255, 218, 0.6);
+        }
+        
+        /* AI Chat Section */
+        .ai-chat-section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            display: inline-block;
+            position: relative;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 4px;
+            background: var(--primary-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            color: var(--light-text);
+            max-width: 600px;
+            margin: 1.5rem auto 0;
+            font-size: 1.1rem;
+        }
+        
+        /* AI Chat Interface */
+        .ai-chat-container {
+            background: rgba(30, 58, 92, 0.5);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid #1e3a5c;
+            overflow: hidden;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .chat-header {
+            background: rgba(100, 255, 218, 0.1);
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .ai-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: var(--dark-color);
+            font-size: 1.5rem;
+        }
+        
+        .chat-header h3 {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+        }
+        
+        .logout-btn {
+            background: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background: var(--primary-color);
+            color: var(--dark-color);
+        }
+        
+        .chat-messages {
+            height: 400px;
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .message {
+            max-width: 80%;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 15px;
+            position: relative;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .user-message {
+            background: rgba(100, 255, 218, 0.2);
+            border: 1px solid var(--primary-color);
+            align-self: flex-end;
+            text-align: right;
+        }
+        
+        .ai-message {
+            background: rgba(30, 58, 92, 0.8);
+            border: 1px solid #1e3a5c;
+            align-self: flex-start;
+        }
+        
+        .chat-input-container {
+            display: flex;
+            padding: 1.5rem;
+            border-top: 1px solid #1e3a5c;
+            background: rgba(30, 58, 92, 0.3);
+        }
+        
+        .chat-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: 1px solid #1e3a5c;
+            border-radius: 50px;
+            background: rgba(17, 34, 64, 0.8);
+            color: var(--text-color);
+            font-size: 1rem;
+            margin-right: 1rem;
+        }
+        
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        .send-button {
+            background: var(--primary-color);
+            color: var(--dark-color);
+            border: none;
+            border-radius: 50px;
+            padding: 0 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .send-button:hover {
+            background: #52e0c4;
+            transform: translateY(-2px);
+        }
+        
+        /* AI Services Section */
+        .ai-services-section {
+            padding: 5rem 0;
+            background: rgba(30, 58, 92, 0.3);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .service-card {
+            background: rgba(30, 58, 92, 0.5);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid #1e3a5c;
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(100, 255, 218, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .service-card:hover::before {
+            left: 100%;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(100, 255, 218, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .service-card:hover .service-icon {
+            background: var(--primary-color);
+            color: var(--dark-color);
+            transform: scale(1.1);
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .service-card p {
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-btn {
+            display: inline-block;
+            background: transparent;
+            color: var(--primary-color);
+            padding: 0.8rem 2rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .service-btn:hover {
+            background: var(--primary-color);
+            color: var(--dark-color);
+            transform: translateY(-2px);
+        }
+        
+        /* Process Section */
+        .process-section {
+            padding: 5rem 0;
+        }
+        
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .process-step {
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color);
+            color: var(--dark-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .process-step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 5rem 0;
+            text-align: center;
+        }
+        
+        .cta-content {
+            background: rgba(30, 58, 92, 0.5);
+            padding: 4rem;
+            border-radius: 15px;
+            border: 1px solid #1e3a5c;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .cta-content p {
+            color: var(--text-color);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark-color);
+            color: var(--primary-color);
+            padding: 4rem 0 2rem;
+            border-top: 1px solid var(--primary-color);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        @media (max-width: 968px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background: var(--primary-color);
+            bottom: -8px;
+            left: 0;
+            border-radius: 2px;
+        }
+        
+        .footer-column p {
+            color: var(--text-color);
+            margin-top: 1rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #1e3a5c;
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+        
+        /* Background Animation */
+        .background-animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .circle {
+            position: absolute;
+            background: rgba(100, 255, 218, 0.05);
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: floatAndFade 20s infinite ease-in-out alternate;
+            opacity: 0;
+        }
+        
+        .c1 { width: 200px; height: 200px; top: 10%; left: 5%; animation-delay: 0s; }
+        .c2 { width: 150px; height: 150px; top: 30%; right: 10%; animation-delay: 2s; }
+        .c3 { width: 250px; height: 250px; bottom: 5%; left: 20%; animation-delay: 4s; }
+        .c4 { width: 180px; height: 180px; top: 50%; left: 0%; animation-delay: 6s; }
+        .c5 { width: 220px; height: 220px; top: 15%; right: 25%; animation-delay: 8s; }
+        .c6 { width: 100px; height: 100px; bottom: 10%; right: 5%; animation-delay: 10s; }
+
+        @keyframes floatAndFade {
+            0% { transform: translate(0, 0) scale(0.8); opacity: 0; }
+            25% { opacity: 0.3; }
+            50% { transform: translate(50px, -50px) scale(1.2); opacity: 0.5; }
+            75% { opacity: 0.3; }
+            100% { transform: translate(0, 0) scale(0.8); opacity: 0; }
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-content {
+                padding: 2rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                margin: 0 10px 10px;
+            }
+            
+            .chat-messages {
+                height: 300px;
+            }
+            
+            .message {
+                max-width: 90%;
+            }
+            
+            .access-form {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="background-animation-container">
+        <div class="circle c1"></div>
+        <div class="circle c2"></div>
+        <div class="circle c3"></div>
+        <div class="circle c4"></div>
+        <div class="circle c5"></div>
+        <div class="circle c6"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <span class="logo-icon"><i class="fas fa-robot"></i></span>
+                AI Solution Hub
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="about us .html">About</a></li>
+                    <li><a href="solutions.html" style="color: var(--primary-color);">AI Services</a></li>
+                    <li><a href="category.html">Categories</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Access Form (Initially Visible) -->
+    <div class="access-form-container" id="accessForm">
+        <div class="access-form">
+            <div class="form-logo">
+                <i class="fas fa-robot"></i>
+            </div>
+            <h1 class="form-title">Access AI Services</h1>
+            <p class="form-subtitle">Please complete the form to access our AI Assistant and services</p>
+            
+            <form id="aiAccessForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" class="form-control" placeholder="Enter your full name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="company">Company/Organization</label>
+                    <input type="text" id="company" class="form-control" placeholder="Enter your company name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="purpose">Purpose of Using AI</label>
+                    <select id="purpose" class="form-control" required>
+                        <option value="">Select your purpose</option>
+                        <option value="business">Business Solutions</option>
+                        <option value="research">Research & Development</option>
+                        <option value="education">Education & Learning</option>
+                        <option value="personal">Personal Use</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="experience">AI Experience Level</label>
+                    <select id="experience" class="form-control" required>
+                        <option value="">Select your experience</option>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-unlock"></i> Access AI Services
+                </button>
+            </form>
+            
+            <div class="form-footer">
+                By accessing our AI services, you agree to our terms of service and privacy policy.
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content (Hidden Initially) -->
+    <div class="main-content" id="mainContent">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container hero-content">
+                <h1>AI-Powered Solutions</h1>
+                <p>Experience the future with our cutting-edge artificial intelligence services designed to transform your business operations and drive innovation.</p>
+                <a href="#ai-chat" class="cta-button"><i class="fas fa-comments"></i> Try AI Assistant</a>
+            </div>
+        </section>
+
+        <!-- AI Chat Section -->
+        <section class="ai-chat-section" id="ai-chat">
+            <div class="container">
+                <div class="section-title fade-in">
+                    <h2>AI Assistant</h2>
+                    <p>Interact with our intelligent AI assistant to get instant answers and solutions for your business needs.</p>
+                </div>
+                
+                <div class="ai-chat-container fade-in">
+                    <div class="chat-header">
+                        <div class="user-info">
+                            <div class="ai-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div>
+                                <h3>AI Assistant</h3>
+                                <p style="color: var(--light-text); font-size: 0.9rem;">Online - Ready to help</p>
+                            </div>
+                        </div>
+                        <button class="logout-btn" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </div>
+                    
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message ai-message">
+                            <p>Hello! I'm your AI assistant. How can I help you today? You can ask me about:</p>
+                            <ul style="text-align: left; margin: 10px 0; padding-left: 20px;">
+                                <li>AI implementation strategies</li>
+                                <li>Machine learning solutions</li>
+                                <li>Business automation</li>
+                                <li>Data analytics</li>
+                                <li>Or any other AI-related topics!</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-input-container">
+                        <input type="text" class="chat-input" id="userInput" placeholder="Type your message here...">
+                        <button class="send-button" id="sendButton">Send <i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Services Section -->
+        <section class="ai-services-section">
+            <div class="container">
+                <div class="section-title fade-in">
+                    <h2>Our AI Services</h2>
+                    <p>Comprehensive artificial intelligence solutions tailored to your business requirements.</p>
+                </div>
+                
+                <div class="services-grid">
+                    <!-- Machine Learning -->
+                    <div class="service-card fade-in">
+                        <div class="service-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>Machine Learning</h3>
+                        <p>Advanced ML algorithms to predict trends, automate decisions, and uncover valuable insights from your data.</p>
+                        <a href="#" class="service-btn">Learn More</a>
+                    </div>
+                    
+                    <!-- Natural Language Processing -->
+                    <div class="service-card fade-in">
+                        <div class="service-icon">
+                            <i class="fas fa-language"></i>
+                        </div>
+                        <h3>Natural Language Processing</h3>
+                        <p>Transform how you interact with customers through intelligent chatbots, sentiment analysis, and text processing.</p>
+                        <a href="#" class="service-btn">Learn More</a>
+                    </div>
+                    
+                    <!-- Computer Vision -->
+                    <div class="service-card fade-in">
+                        <div class="service-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h3>Computer Vision</h3>
+                        <p>Image and video analysis solutions for object detection, facial recognition, and visual data processing.</p>
+                        <a href="#" class="service-btn">Learn More</a>
+                    </div>
+                    
+                    <!-- Predictive Analytics -->
+                    <div class="service-card fade-in">
+                        <div class="service-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <h3>Predictive Analytics</h3>
+                        <p>Forecast future trends, customer behavior, and market changes with our advanced predictive models.</p>
+                        <a href="#" class="service-btn">Learn More</a>
+                    </div>
+                    
+                    <!-- AI Automation -->
+                    <div class="service-card fade-in">
+                        <div class="service-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3>AI Automation</h3>
+                        <p>Streamline business processes and reduce manual work with intelligent automation solutions.</p>
+                        <a href="#" class="service-btn">Learn More</a>
+                    </div>
+                    
+                    <!-- AI Consulting -->
+                    <div class="service-card fade-in">
+                        <div class="service-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>AI Consulting</h3>
+                        <p>Strategic guidance to help you identify AI opportunities and implement effective AI strategies.</p>
+                        <a href="#" class="service-btn">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section -->
+        <section class="process-section">
+            <div class="container">
+                <div class="section-title fade-in">
+                    <h2>AI Implementation Process</h2>
+                    <p>Our systematic approach to delivering successful AI solutions for your business.</p>
+                </div>
+                
+                <div class="process-steps">
+                    <div class="process-step fade-in">
+                        <div class="step-number">1</div>
+                        <h3>Discovery & Assessment</h3>
+                        <p>We analyze your business needs and identify AI opportunities that align with your goals.</p>
+                    </div>
+                    
+                    <div class="process-step fade-in">
+                        <div class="step-number">2</div>
+                        <h3>Data Preparation</h3>
+                        <p>We collect, clean, and prepare your data for AI model training and implementation.</p>
+                    </div>
+                    
+                    <div class="process-step fade-in">
+                        <div class="step-number">3</div>
+                        <h3>Model Development</h3>
+                        <p>Our experts develop and train custom AI models tailored to your specific requirements.</p>
+                    </div>
+                    
+                    <div class="process-step fade-in">
+                        <div class="step-number">4</div>
+                        <h3>Integration & Deployment</h3>
+                        <p>We seamlessly integrate AI solutions into your existing systems and workflows.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content fade-in">
+                    <h2>Ready to Transform Your Business with AI?</h2>
+                    <p>Let's discuss how our AI solutions can drive innovation, efficiency, and growth for your organization.</p>
+                    <a href="contact.html" class="cta-button"><i class="fas fa-paper-plane"></i> Start Your AI Journey</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-column">
+                        <h3>AI Solution Hub</h3>
+                        <p>Providing cutting-edge artificial intelligence solutions to transform businesses and drive innovation in the digital era.</p>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="home.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                            <li><a href="about us .html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                            <li><a href="ai-services.html"><i class="fas fa-chevron-right"></i> AI Services</a></li>
+                            <li><a href="category.html"><i class="fas fa-chevron-right"></i> Categories</a></li>
+                            <li><a href="portfolio.html"><i class="fas fa-chevron-right"></i> Portfolio</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h3>AI Services</h3>
+                        <ul>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Machine Learning</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Natural Language Processing</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Computer Vision</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Predictive Analytics</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> AI Automation</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h3>Connect With Us</h3>
+                        <ul>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Facebook</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Twitter</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> LinkedIn</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> Instagram</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i> GitHub</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; 2024 AI Solution Hub. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #ff4d4d;"></i></p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // DOM Elements
+        const accessForm = document.getElementById('accessForm');
+        const mainContent = document.getElementById('mainContent');
+        const aiAccessForm = document.getElementById('aiAccessForm');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const chatMessages = document.getElementById('chatMessages');
+        const userInput = document.getElementById('userInput');
+        const sendButton = document.getElementById('sendButton');
+        
+        // Check if user already has access
+        window.addEventListener('load', function() {
+            const userData = localStorage.getItem('aiUserData');
+            if (userData) {
+                accessForm.style.display = 'none';
+                mainContent.style.display = 'block';
+                
+                // Add personalized welcome message
+                const user = JSON.parse(userData);
+                setTimeout(() => {
+                    addMessage(`👋 <strong>Welcome back, ${user.fullName}!</strong><br><br>Good to see you again! How can I help you with AI solutions today?`, 'ai');
+                }, 1000);
+            }
+        });
+        
+        // Form Submission
+        aiAccessForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const company = document.getElementById('company').value;
+            const purpose = document.getElementById('purpose').value;
+            const experience = document.getElementById('experience').value;
+            
+            // Validate form
+            if (!fullName || !email || !purpose || !experience) {
+                alert('Please fill all required fields');
+                return;
+            }
+            
+            // Save user data
+            const userData = {
+                fullName,
+                email,
+                company,
+                purpose,
+                experience,
+                accessTime: new Date().toLocaleString()
+            };
+            
+            localStorage.setItem('aiUserData', JSON.stringify(userData));
+            
+            // Switch to main content
+            accessForm.style.display = 'none';
+            mainContent.style.display = 'block';
+            
+            // Add personalized welcome message
+            setTimeout(() => {
+                addMessage(`🎉 <strong>Welcome, ${fullName}!</strong><br><br>I see you're interested in <strong>${purpose}</strong> and have <strong>${experience}</strong> experience with AI. I'm excited to help you explore our AI solutions!<br><br>What would you like to know about?`, 'ai');
+            }, 1000);
+        });
+        
+        // Logout functionality
+        logoutBtn.addEventListener('click', function() {
+            localStorage.removeItem('aiUserData');
+            mainContent.style.display = 'none';
+            accessForm.style.display = 'flex';
+            aiAccessForm.reset();
+        });
+        
+        // AI Chat Functionality
+        const aiResponses = {
+            "hello": "Hello! How can I assist you with AI solutions today?",
+            "hi": "Hi there! I'm here to help you explore our AI services and solutions.",
+            "what is ai": "Artificial Intelligence (AI) refers to the simulation of human intelligence in machines that are programmed to think, learn, and solve problems like humans. It includes technologies like machine learning, natural language processing, and computer vision.",
+            "machine learning": "Machine Learning is a subset of AI that enables computers to learn and improve from experience without being explicitly programmed. We offer comprehensive ML solutions including predictive modeling, pattern recognition, and automated decision-making systems.",
+            "natural language processing": "Natural Language Processing (NLP) allows computers to understand, interpret, and generate human language. Our NLP services include chatbots, sentiment analysis, text classification, and language translation systems.",
+            "computer vision": "Computer Vision enables machines to interpret and understand visual information from the world. We develop solutions for image recognition, object detection, facial recognition, and visual data analysis.",
+            "predictive analytics": "Predictive Analytics uses historical data and machine learning algorithms to forecast future outcomes. Our solutions help businesses anticipate trends, customer behavior, and market changes.",
+            "automation": "AI Automation streamlines business processes by replacing manual tasks with intelligent systems. We implement automation solutions for data entry, customer service, reporting, and workflow optimization.",
+            "pricing": "Our AI solutions are tailored to each client's specific needs. Pricing depends on the scope, complexity, and duration of the project. Would you like to schedule a consultation to discuss your requirements?",
+            "contact": "You can reach us at contact@aisolutionhub.com or call +1 (555) 123-4567. Our team is available Monday-Friday, 9AM-6PM.",
+            "services": "We offer a wide range of AI services including Machine Learning, Natural Language Processing, Computer Vision, Predictive Analytics, AI Automation, and AI Consulting. Which service are you most interested in?",
+            "portfolio": "You can view our portfolio of successful AI implementations at our portfolio page. We've helped businesses across various industries transform their operations with AI.",
+            "default": "That's an interesting question about AI! Our team of experts can provide detailed information about this topic. Would you like to schedule a consultation to discuss your specific needs?"
+        };
+        
+        // Send message function
+        function sendMessage() {
+            const message = userInput.value.trim();
+            if (message === '') return;
+            
+            // Add user message
+            addMessage(message, 'user');
+            userInput.value = '';
+            
+            // Generate AI response after delay
+            setTimeout(() => {
+                const aiResponse = generateAIResponse(message);
+                addMessage(aiResponse, 'ai');
+            }, 1000);
+        }
+        
+        // Add message to chat
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+            messageDiv.classList.add(sender === 'user' ? 'user-message' : 'ai-message');
+            messageDiv.innerHTML = `<p>${text}</p>`;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // Generate AI response
+        function generateAIResponse(userMessage) {
+            const lowerMessage = userMessage.toLowerCase();
+            
+            // Check for matching responses
+            for (const key in aiResponses) {
+                if (lowerMessage.includes(key) && key !== "default") {
+                    return aiResponses[key];
+                }
+            }
+            
+            // Return default response
+            return aiResponses.default;
+        }
+        
+        // Event listeners for chat
+        sendButton.addEventListener('click', sendMessage);
+        userInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        // Scroll animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', fadeInOnScroll);
+        
+        // Header background change on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(10, 25, 47, 0.95)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, var(--dark-color) 0%, var(--darker-color) 100%)';
+            }
+        });
+
+        // Service card interactions
+        document.querySelectorAll('.service-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const serviceTitle = this.closest('.service-card').querySelector('h3').textContent;
+                addMessage(`I'm interested in learning more about ${serviceTitle}. Can you provide more details?`, 'user');
+                
+                setTimeout(() => {
+                    addMessage(`Great choice! ${serviceTitle} is one of our most popular services. Our experts would be happy to provide a detailed consultation about how this can benefit your business. Would you like to schedule a meeting?`, 'ai');
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+</html>

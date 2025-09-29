@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%230000ff'>💡</text></svg>">
+    <title>About Us - Solution Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a192f 0%, #112240 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #0a192f 0%, #112240 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #64ffda;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #64ffda;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: #ccd6f6;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #64ffda;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 0 4rem 0;
+            text-align: center;
+            background: linear-gradient(rgba(10, 25, 47, 0.9), rgba(17, 34, 64, 0.9)), url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+            color: #64ffda;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease 0.3s both;
+            color: #ccd6f6;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-dark {
+            background: linear-gradient(135deg, #112240 0%, #0a192f 100%);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin: 2rem 0;
+            border-radius: 15px;
+            border: 1px solid #1e3a5c;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #64ffda;
+            font-size: 2.5rem;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .content-text {
+            padding: 2rem;
+        }
+
+        .content-text p {
+            color: #ccd6f6;
+            font-size: 1.1rem;
+        }
+
+        .content-image {
+            text-align: center;
+        }
+
+        .content-image img {
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+            border: 2px solid #64ffda;
+        }
+
+        .content-image img:hover {
+            transform: scale(1.03);
+        }
+
+        /* Values Section */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .value-card {
+            background: linear-gradient(135deg, #112240 0%, #0a192f 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+            border: 1px solid #1e3a5c;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            border-color: #64ffda;
+        }
+
+        .value-icon {
+            font-size: 3rem;
+            color: #64ffda;
+            margin-bottom: 1rem;
+        }
+
+        .value-card h3 {
+            color: #64ffda;
+            margin-bottom: 1rem;
+        }
+
+        .value-card p {
+            color: #ccd6f6;
+        }
+
+        /* Enhanced Team Section */
+        .team-section {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #0a192f 0%, #112240 100%);
+        }
+
+        .team-container {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .team-member {
+            background: linear-gradient(135deg, #112240 0%, #0a192f 100%);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            transition: all 0.4s ease;
+            max-width: 400px;
+            position: relative;
+            border: 1px solid #1e3a5c;
+        }
+
+        .team-member:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+            border-color: #64ffda;
+        }
+
+        .member-image {
+            position: relative;
+            height: 350px;
+            overflow: hidden;
+        }
+
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .team-member:hover .member-image img {
+            transform: scale(1.1);
+        }
+
+        .member-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(10, 25, 47, 0.9));
+            padding: 2rem;
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .team-member:hover .member-overlay {
+            transform: translateY(0);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: #64ffda;
+            background: rgba(100, 255, 218, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: 1px solid #64ffda;
+        }
+
+        .social-links a:hover {
+            background: #64ffda;
+            color: #0a192f;
+            transform: scale(1.1);
+        }
+
+        .member-info {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .member-info h3 {
+            color: #64ffda;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-role {
+            color: #8892b0;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .member-bio {
+            color: #ccd6f6;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .member-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #1e3a5c;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #64ffda;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #8892b0;
+            margin-top: 0.3rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #64ffda 0%, #112240 100%);
+            color: #0a192f;
+            text-align: center;
+            padding: 4rem 0;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 2px solid #64ffda;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #0a192f;
+            color: #64ffda;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            border: 2px solid #64ffda;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background: #64ffda;
+            color: #0a192f;
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(100, 255, 218, 0.3);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 25, 47, 0.95);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #112240 0%, #0a192f 100%);
+            margin: 5% auto;
+            padding: 3rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border: 2px solid #64ffda;
+            position: relative;
+            animation: slideUp 0.4s ease;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            color: #64ffda;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #ff6b6b;
+        }
+
+        .modal h2 {
+            color: #64ffda;
+            margin-bottom: 1rem;
+        }
+
+        .modal p {
+            color: #ccd6f6;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a192f;
+            color: #64ffda;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid #64ffda;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 6rem 0 3rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-container {
+                gap: 2rem;
+            }
+
+            .team-member {
+                max-width: 100%;
+            }
+
+            .modal-content {
+                margin: 10% auto;
+                padding: 2rem;
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Solution Hub</div>
+                <ul class="nav-links">
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="solutions.html">Solution</a></li>
+                    <li><a href="about us .html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>About Solution Hub</h1>
+            <p>Your trusted partner in innovative business solutions. We transform challenges into opportunities through technology, strategy, and expert guidance.</p>
+            <button class="cta-button" onclick="openModal('heroModal')">Learn More</button>
+        </div>
+    </section>
+
+    <!-- Who We Are Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Who We Are</h2>
+            <div class="content-grid fade-in">
+                <div class="content-text">
+                    <p>Solution Hub is a dynamic and client-focused consulting firm dedicated to providing elegant and effective solutions for your biggest business challenges. We believe every problem has a simple, practical, and sustainable solution.</p>
+                    <p>Our team combines years of industry experience with innovative thinking to deliver results that drive your business forward.</p>
+                    <button class="cta-button" onclick="openModal('whoWeAreModal')">Read Our Story</button>
+                </div>
+                <div class="content-image">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Solution Hub Team">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="section section-dark">
+        <div class="container">
+            <h2 class="section-title">Our Mission</h2>
+            <div class="content-grid fade-in">
+                <div class="content-image">
+                    <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Mission">
+                </div>
+                <div class="content-text">
+                    <p>Our mission is clear: to empower businesses with powerful strategies and tools that enhance productivity, accelerate growth, and maintain competitive advantage.</p>
+                    <p>We leverage technology, strategic planning, and expert analysis to create solutions that evolve with your business needs.</p>
+                    <button class="cta-button" onclick="openModal('missionModal')">Our Vision</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enhanced Team Section -->
+    <section class="team-section">
+        <div class="container">
+            <h2 class="section-title">Meet Our Expert Team</h2>
+            <div class="team-container">
+                <!-- Team Member 1 -->
+                <div class="team-member fade-in">
+                    <div class="member-image">
+                        <img src="my photo.jpg" alt="Founder & CEO">
+                        <div class="member-overlay">
+                            <h3>MIRZA HARIS</h3>
+                            <p>2+ Years Experience</p>
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3>MIRZA HARIS</h3>
+                        <span class="member-role">Founder & CEO</span>
+                        <p class="member-bio">Visionary leader with expertise in business strategy and digital transformation. Passionate about creating solutions that make a real difference.</p>
+                        <div class="member-stats">
+                            <div class="stat">
+                                <div class="stat-number">5+</div>
+                                <div class="stat-label">Projects</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">2+</div>
+                                <div class="stat-label">Years Exp</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">98%</div>
+                                <div class="stat-label">Success</div>
+                            </div>
+                        </div>
+                        <button class="cta-button" onclick="openModal('rajModal')">View Profile</button>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="team-member fade-in">
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="CTO">
+                        <div class="member-overlay">
+                            <h3>Priya Patel</h3>
+                            <p>Technology Innovator</p>
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-github"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Priya Patel</h3>
+                        <span class="member-role">Chief Technology Officer</span>
+                        <p class="member-bio">Tech expert specializing in AI, cloud solutions, and digital innovation. Believes in the power of technology to transform businesses.</p>
+                        <div class="member-stats">
+                            <div class="stat">
+                                <div class="stat-number">150+</div>
+                                <div class="stat-label">Solutions</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">12+</div>
+                                <div class="stat-label">Years Exp</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">95%</div>
+                                <div class="stat-label">Efficiency</div>
+                            </div>
+                        </div>
+                        <button class="cta-button" onclick="openModal('priyaModal')">View Profile</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Our Values</h2>
+            <div class="values-grid">
+                <div class="value-card fade-in">
+                    <div class="value-icon"><i class="fas fa-handshake"></i></div>
+                    <h3>Integrity</h3>
+                    <p>We maintain complete transparency and honesty in all our client relationships.</p>
+                </div>
+                <div class="value-card fade-in">
+                    <div class="value-icon"><i class="fas fa-users"></i></div>
+                    <h3>Collaboration</h3>
+                    <p>We work with you, not just for you, to achieve shared success.</p>
+                </div>
+                <div class="value-card fade-in">
+                    <div class="value-icon"><i class="fas fa-star"></i></div>
+                    <h3>Excellence</h3>
+                    <p>We strive for the highest quality in every solution we deliver.</p>
+                </div>
+                <div class="value-card fade-in">
+                    <div class="value-icon"><i class="fas fa-lightbulb"></i></div>
+                    <h3>Innovation</h3>
+                    <p>We continuously explore better ways to solve business challenges.</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 3rem;">
+                <button class="cta-button" onclick="openModal('valuesModal')">Our Philosophy</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section">
+        <div class="container">
+            <div class="cta-section fade-in">
+                <h2>Ready to Transform Your Business?</h2>
+                <p>Contact us today and discover how Solution Hub can help you achieve your goals.</p>
+                <button class="cta-button" onclick="openModal('contactModal')">Get Started Today</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Solution Hub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div id="heroModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('heroModal')">&times;</span>
+            <h2>Welcome to Solution Hub</h2>
+            <p>We are a premier consulting firm specializing in digital transformation and business innovation. Our team of experts is dedicated to helping your business reach new heights through cutting-edge solutions.</p>
+            <p>With over a decade of experience, we've helped hundreds of businesses streamline their operations and achieve remarkable growth.</p>
+        </div>
+    </div>
+
+    <div id="whoWeAreModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('whoWeAreModal')">&times;</span>
+            <h2>Our Story</h2>
+            <p>Founded in 2010, Solution Hub began as a small startup with a big vision: to make advanced business solutions accessible to companies of all sizes.</p>
+            <p>Today, we're proud to be a trusted partner for businesses across various industries, delivering innovative solutions that drive real results.</p>
+        </div>
+    </div>
+
+    <div id="missionModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('missionModal')">&times;</span>
+            <h2>Our Vision</h2>
+            <p>We envision a world where every business, regardless of size, can leverage technology to its fullest potential.</p>
+            <p>Our mission is to bridge the gap between complex technological challenges and practical, effective solutions that drive business growth.</p>
+        </div>
+    </div>
+
+    <div id="rajModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('rajModal')">&times;</span>
+            <h2>Raj Sharma - CEO Profile</h2>
+            <p>Raj brings over 15 years of experience in business strategy and digital transformation. He holds an MBA from IIM Ahmedabad and has previously led digital initiatives at Fortune 500 companies.</p>
+            <p><strong>Specializations:</strong> Digital Strategy, Business Transformation, Leadership Development</p>
+            <p><strong>Education:</strong> MBA - IIM Ahmedabad, B.Tech - IIT Delhi</p>
+        </div>
+    </div>
+
+    <div id="priyaModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('priyaModal')">&times;</span>
+            <h2>Priya Patel - CTO Profile</h2>
+            <p>Priya is a technology visionary with 12+ years in AI and cloud computing. She has led multiple successful product launches and holds patents in machine learning algorithms.</p>
+            <p><strong>Specializations:</strong> Artificial Intelligence, Cloud Architecture, Product Development</p>
+            <p><strong>Education:</strong> M.S. Computer Science - Stanford University, B.Tech - BITS Pilani</p>
+        </div>
+    </div>
+
+    <div id="valuesModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('valuesModal')">&times;</span>
+            <h2>Our Core Philosophy</h2>
+            <p>At Solution Hub, we believe that great solutions come from understanding our clients' unique challenges and collaborating closely to create tailored strategies.</p>
+            <p>Our approach combines technical expertise with business acumen to deliver solutions that are not just innovative, but also practical and sustainable.</p>
+        </div>
+    </div>
+
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('contactModal')">&times;</span>
+            <h2>Get In Touch</h2>
+            <p>Ready to start your transformation journey? Contact us today for a free consultation.</p>
+            <p><strong>Email:</strong> info@solutionhub.com</p>
+            <p><strong>Phone:</strong> +91-9876543210</p>
+            <p><strong>Address:</strong> 123 Business Street, Mumbai, India</p>
+            <button class="cta-button" style="margin-top: 2rem;" onclick="closeModal('contactModal')">Schedule a Call</button>
+        </div>
+    </div>
+
+    <script>
+        // Modal Functions
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+
+        // Scroll animation
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const appearOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -100px 0px"
+        };
+
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add('visible');
+                    appearOnScroll.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
+
+        fadeElements.forEach(element => {
+            appearOnScroll.observe(element);
+        });
+
+        // Header background change on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(10, 25, 47, 0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.4)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, #0a192f 0%, #112240 100%)';
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.3)';
+            }
+        });
+
+        // Team member hover effects
+        document.querySelectorAll('.team-member').forEach(member => {
+            member.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-15px)';
+            });
+            
+            member.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Escape key to close modals
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const modals = document.querySelectorAll('.modal');
+                modals.forEach(modal => {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

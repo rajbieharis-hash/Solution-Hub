@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%230000ff'>💡</text></svg>">
+    <title>Solution Hub - Categories</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #64ffda;
+            --dark-color: #0a192f;
+            --darker-color: #112240;
+            --text-color: #ccd6f6;
+            --light-text: #8892b0;
+            --health-color: #4CAF50;
+            --fitness-color: #2196F3;
+            --education-color: #FF9800;
+            --lifestyle-color: #E91E63;
+            --sports-color: #9C27B0;
+            --routine-color: #607D8B;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--dark-color) 0%, var(--darker-color) 100%);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background: linear-gradient(135deg, var(--dark-color) 0%, var(--darker-color) 100%);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+            padding: 15px 0;
+            border-bottom: 1px solid var(--primary-color);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar-brand i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            color: var(--text-color);
+            margin: 0 10px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .navbar-toggler {
+            border: 1px solid var(--primary-color);
+            padding: 0.5rem;
+        }
+        
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+        
+        .search-box {
+            position: relative;
+            margin-left: 15px;
+        }
+        
+        .search-input {
+            padding: 8px 15px 8px 40px;
+            border-radius: 50px;
+            border: 1px solid #1e3a5c;
+            width: 200px;
+            transition: all 0.3s ease;
+            background: var(--darker-color);
+            color: var(--text-color);
+        }
+        
+        .search-input:focus {
+            width: 250px;
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.2);
+        }
+        
+        .search-input::placeholder {
+            color: var(--light-text);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--light-text);
+        }
+        
+        .btn-primary {
+            background: var(--primary-color);
+            border: none;
+            color: var(--dark-color);
+            font-weight: 600;
+        }
+        
+        .btn-primary:hover {
+            background: #52e0c4;
+            transform: translateY(-2px);
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+        }
+        
+        .category-header {
+            text-align: center;
+            margin: 80px 0 40px;
+            position: relative;
+        }
+        
+        .category-header h1 {
+            font-weight: 700;
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .category-header p {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+        
+        .category-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            height: 300px;
+            cursor: pointer;
+            border: 1px solid #1e3a5c;
+            background: linear-gradient(135deg, var(--darker-color) 0%, var(--dark-color) 100%);
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            border-color: var(--primary-color);
+        }
+        
+        .category-image {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            opacity: 0.7;
+        }
+        
+        .category-card:hover .category-image {
+            transform: scale(1.05);
+        }
+        
+        .category-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(10, 25, 47, 0.9), transparent);
+            padding: 20px;
+            color: white;
+        }
+        
+        .category-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .health-card .category-title { color: var(--health-color); }
+        .fitness-card .category-title { color: var(--fitness-color); }
+        .education-card .category-title { color: var(--education-color); }
+        .lifestyle-card .category-title { color: var(--lifestyle-color); }
+        .sports-card .category-title { color: var(--sports-color); }
+        .routine-card .category-title { color: var(--routine-color); }
+        
+        .category-description {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            color: var(--text-color);
+        }
+        
+        .btn-explore {
+            background-color: var(--primary-color);
+            color: var(--dark-color);
+            border: none;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-explore:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.3);
+        }
+        
+        /* Modal Styles */
+        .modal-content {
+            border-radius: 15px;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, var(--darker-color) 0%, var(--dark-color) 100%);
+            color: var(--text-color);
+            border: 1px solid #1e3a5c;
+        }
+        
+        .modal-header {
+            border-bottom: 1px solid #1e3a5c;
+            position: relative;
+            background: linear-gradient(135deg, var(--darker-color) 0%, var(--dark-color) 100%);
+        }
+        
+        .btn-close {
+            filter: invert(1);
+        }
+        
+        .modal-category-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            position: absolute;
+            top: -30px;
+            left: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+        
+        .health-modal .modal-category-icon { background-color: var(--health-color); }
+        .fitness-modal .modal-category-icon { background-color: var(--fitness-color); }
+        .education-modal .modal-category-icon { background-color: var(--education-color); }
+        .lifestyle-modal .modal-category-icon { background-color: var(--lifestyle-color); }
+        .sports-modal .modal-category-icon { background-color: var(--sports-color); }
+        .routine-modal .modal-category-icon { background-color: var(--routine-color); }
+        
+        .modal-title {
+            font-weight: 700;
+            margin-top: 20px;
+        }
+        
+        .health-modal .modal-title { color: var(--health-color); }
+        .fitness-modal .modal-title { color: var(--fitness-color); }
+        .education-modal .modal-title { color: var(--education-color); }
+        .lifestyle-modal .modal-title { color: var(--lifestyle-color); }
+        .sports-modal .modal-title { color: var(--sports-color); }
+        .routine-modal .modal-title { color: var(--routine-color); }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .modal-body img {
+            border-radius: 10px;
+            margin-bottom: 20px;
+            max-height: 300px;
+            object-fit: cover;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .trending-topics {
+            background: rgba(30, 58, 92, 0.5);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            border: 1px solid #1e3a5c;
+        }
+        
+        .trending-topics h5 {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .topic-badge {
+            display: inline-block;
+            background: var(--darker-color);
+            padding: 5px 15px;
+            border-radius: 50px;
+            margin: 0 10px 10px 0;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: 1px solid #1e3a5c;
+            color: var(--text-color);
+        }
+        
+        .topic-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .health-modal .topic-badge:hover { border-color: var(--health-color); }
+        .fitness-modal .topic-badge:hover { border-color: var(--fitness-color); }
+        .education-modal .topic-badge:hover { border-color: var(--education-color); }
+        .lifestyle-modal .topic-badge:hover { border-color: var(--lifestyle-color); }
+        .sports-modal .topic-badge:hover { border-color: var(--sports-color); }
+        .routine-modal .topic-badge:hover { border-color: var(--routine-color); }
+        
+        /* Form Styles */
+        .consultation-form {
+            background: rgba(30, 58, 92, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid #1e3a5c;
+        }
+        
+        .form-title {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .form-control {
+            background: var(--darker-color);
+            border: 1px solid #1e3a5c;
+            color: var(--text-color);
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .form-control:focus {
+            background: var(--darker-color);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.2);
+            color: var(--text-color);
+        }
+        
+        .form-control::placeholder {
+            color: var(--light-text);
+        }
+        
+        .form-select {
+            background: var(--darker-color);
+            border: 1px solid #1e3a5c;
+            color: var(--text-color);
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.2);
+        }
+        
+        .form-label {
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .form-check-input {
+            background-color: var(--darker-color);
+            border: 1px solid #1e3a5c;
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .form-check-label {
+            color: var(--text-color);
+        }
+        
+        .submit-btn {
+            background: var(--primary-color);
+            color: var(--dark-color);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background: #52e0c4;
+            transform: translateY(-2px);
+        }
+        
+        .submit-btn:disabled {
+            background: var(--light-text);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: rgba(100, 255, 218, 0.1);
+            border: 1px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .success-message i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background: var(--dark-color);
+            color: var(--primary-color);
+            padding: 60px 0 30px;
+            margin-top: 60px;
+            border-top: 1px solid var(--primary-color);
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        .footer-about p {
+            color: var(--text-color);
+            margin-bottom: 20px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(100, 255, 218, 0.1);
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+            border: 1px solid var(--primary-color);
+        }
+        
+        .social-icons a:hover {
+            background: var(--primary-color);
+            color: var(--dark-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-links h5 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .footer-links h5::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+        
+        .footer-newsletter p {
+            color: var(--text-color);
+            margin-bottom: 20px;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #1e3a5c;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+            background: var(--darker-color);
+            color: var(--text-color);
+        }
+        
+        .newsletter-input::placeholder {
+            color: var(--light-text);
+        }
+        
+        .newsletter-btn {
+            background: var(--primary-color);
+            color: var(--dark-color);
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .newsletter-btn:hover {
+            background: #52e0c4;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #1e3a5c;
+            padding-top: 30px;
+            margin-top: 40px;
+            text-align: center;
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+        
+        .footer-bottom a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: var(--dark-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 99;
+            text-decoration: none;
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            background: #52e0c4;
+        }
+        
+        /* Background Animation */
+        .background-animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .circle {
+            position: absolute;
+            background: rgba(100, 255, 218, 0.05);
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: floatAndFade 20s infinite ease-in-out alternate;
+            opacity: 0;
+        }
+        
+        .c1 { width: 200px; height: 200px; top: 10%; left: 5%; animation-delay: 0s; }
+        .c2 { width: 150px; height: 150px; top: 30%; right: 10%; animation-delay: 2s; }
+        .c3 { width: 250px; height: 250px; bottom: 5%; left: 20%; animation-delay: 4s; }
+        .c4 { width: 180px; height: 180px; top: 50%; left: 0%; animation-delay: 6s; }
+        .c5 { width: 220px; height: 220px; top: 15%; right: 25%; animation-delay: 8s; }
+        .c6 { width: 100px; height: 100px; bottom: 10%; right: 5%; animation-delay: 10s; }
+
+        @keyframes floatAndFade {
+            0% { transform: translate(0, 0) scale(0.8); opacity: 0; }
+            25% { opacity: 0.3; }
+            50% { transform: translate(50px, -50px) scale(1.2); opacity: 0.5; }
+            75% { opacity: 0.3; }
+            100% { transform: translate(0, 0) scale(0.8); opacity: 0; }
+        }
+        
+        @media (max-width: 991.98px) {
+            .category-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .navbar-collapse {
+                padding: 20px 0;
+            }
+            
+            .search-box {
+                margin: 15px 0 0;
+                width: 100%;
+            }
+            
+            .search-input {
+                width: 100%;
+            }
+            
+            .search-input:focus {
+                width: 100%;
+            }
+            
+            .footer-links {
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="background-animation-container">
+        <div class="circle c1"></div>
+        <div class="circle c2"></div>
+        <div class="circle c3"></div>
+        <div class="circle c4"></div>
+        <div class="circle c5"></div>
+        <div class="circle c6"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-lightbulb"></i> Solution Hub
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+                <i class="fas fa-bars" style="color: var(--primary-color);"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="solutions.html">Solutions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="category.html">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about us .html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Search...">
+                </div>
+                <div class="ms-3">
+                    <button class="btn btn-primary">Sign In</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container-fluid">
+            <div class="category-header">
+                <h1>Our Solution Categories</h1>
+                <p>Discover comprehensive solutions across various domains designed to transform your business and drive innovation.</p>
+            </div>
+            
+            <div class="category-grid">
+                <!-- Technology & AI -->
+                <div class="category-card" data-bs-toggle="modal" data-bs-target="#techModal">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Technology" class="category-image">
+                    <div class="category-overlay">
+                        <h3 class="category-title">Technology & AI</h3>
+                        <p class="category-description">Cutting-edge technology solutions and AI implementations for modern businesses.</p>
+                        <button class="btn-explore">Explore Now</button>
+                    </div>
+                </div>
+                
+                <!-- Business Solutions -->
+                <div class="category-card" data-bs-toggle="modal" data-bs-target="#businessModal">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Business" class="category-image">
+                    <div class="category-overlay">
+                        <h3 class="category-title">Business Solutions</h3>
+                        <p class="category-description">Comprehensive business strategies and operational excellence solutions.</p>
+                        <button class="btn-explore">Explore Now</button>
+                    </div>
+                </div>
+                
+                <!-- Digital Marketing -->
+                <div class="category-card" data-bs-toggle="modal" data-bs-target="#marketingModal">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Digital Marketing" class="category-image">
+                    <div class="category-overlay">
+                        <h3 class="category-title">Digital Marketing</h3>
+                        <p class="category-description">Data-driven marketing strategies to amplify your brand's digital presence.</p>
+                        <button class="btn-explore">Explore Now</button>
+                    </div>
+                </div>
+
+                <!-- Health & Wellness -->
+                <div class="category-card health-card" data-bs-toggle="modal" data-bs-target="#healthModal">
+                    <img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Health" class="category-image">
+                    <div class="category-overlay">
+                        <h3 class="category-title">Health & Wellness</h3>
+                        <p class="category-description">Comprehensive health solutions, medical guidance, and wellness programs.</p>
+                        <button class="btn-explore">Explore Now</button>
+                    </div>
+                </div>
+                
+                <!-- Fitness & Training -->
+                <div class="category-card fitness-card" data-bs-toggle="modal" data-bs-target="#fitnessModal">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Fitness" class="category-image">
+                    <div class="category-overlay">
+                        <h3 class="category-title">Fitness & Training</h3>
+                        <p class="category-description">Personalized workout plans, training programs, and fitness guidance.</p>
+                        <button class="btn-explore">Explore Now</button>
+                    </div>
+                </div>
+                
+                <!-- Education & Learning -->
+                <div class="category-card education-card" data-bs-toggle="modal" data-bs-target="#educationModal">
+                    <img src="aaron-burden-6jYoil2GhVk-unsplash.jpg" alt="Education" class="category-image">
+                    <div class="category-overlay">
+                        <h3 class="category-title">Education & Learning</h3>
+                        <p class="category-description">Study techniques, learning strategies, and educational resources.</p>
+                        <button class="btn-explore">Explore Now</button>
+                    </div>
+                </div>
+
+                <!-- Cloud Solutions -->
+                <div class="category-card" data-bs-toggle="modal" data-bs-target="#cloudModal">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Cloud Solutions" class="category-image">
+                    <div class="category-overlay">
+                        <h3 class="category-title">Cloud Solutions</h3>
+                        <p class="category-description">Scalable cloud infrastructure and migration services for enterprises.</p>
+                        <button class="btn-explore">Explore Now</button>
+                    </div>
+                </div>
+                
+                <!-- Cybersecurity -->
+                <div class="category-card" data-bs-toggle="modal" data-bs-target="#securityModal">
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Cybersecurity" class="category-image">
+                    <div class="category-overlay">
+                        <h3 class="category-title">Cybersecurity</h3>
+                        <p class="category-description">Robust security solutions to protect your digital assets and data.</p>
+                        <button class="btn-explore">Explore Now</button>
+                    </div>
+                </div>
+                
+                <!-- Software Development -->
+                <div class="category-card" data-bs-toggle="modal" data-bs-target="#devModal">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Software Development" class="category-image">
+                    <div class="category-overlay">
+                        <h3 class="category-title">Software Development</h3>
+                        <p class="category-description">Custom software solutions tailored to your specific business needs.</p>
+                        <button class="btn-explore">Explore Now</button>
+                    </div>
+                </div>
+
+                <!-- Lifestyle & Balance -->
+                <div class="category-card lifestyle-card" data-bs-toggle="modal" data-bs-target="#lifestyleModal">
+                    <img src="https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Lifestyle" class="category-image">
+                    <div class="category-overlay">
+                        <h3 class="category-title">Lifestyle & Balance</h3>
+                        <p class="category-description">Work-life balance, personal development, and lifestyle optimization.</p>
+                        <button class="btn-explore">Explore Now</button>
+                    </div>
+                </div>
+                
+                <!-- Sports & Athletics -->
+                <div class="category-card sports-card" data-bs-toggle="modal" data-bs-target="#sportsModal">
+                    <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sports" class="category-image">
+                    <div class="category-overlay">
+                        <h3 class="category-title">Sports & Athletics</h3>
+                        <p class="category-description">Sports training, athletic performance, and competitive sports solutions.</p>
+                        <button class="btn-explore">Explore Now</button>
+                    </div>
+                </div>
+                
+                <!-- Daily Routine -->
+                <div class="category-card routine-card" data-bs-toggle="modal" data-bs-target="#routineModal">
+                    <img src="luca-bravo-9l_326FISzk-unsplash.jpg" alt="Daily Routine" class="category-image">
+                    <div class="category-overlay">
+                        <h3 class="category-title">Daily Routine</h3>
+                        <p class="category-description">Productivity systems, time management, and daily routine optimization.</p>
+                        <button class="btn-explore">Explore Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-5">
+                    <a href="#" class="footer-logo">
+                        <i class="fas fa-lightbulb me-2"></i>Solution Hub
+                    </a>
+                    <div class="footer-about">
+                        <p>Solution Hub provides innovative technology solutions and comprehensive lifestyle services to help businesses and individuals transform and thrive.</p>
+                        <div class="social-icons">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-5">
+                    <div class="footer-links">
+                        <h5>Quick Links</h5>
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Solutions</a></li>
+                            <li><a href="#">Categories</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-5">
+                    <div class="footer-links">
+                        <h5>Services</h5>
+                        <ul>
+                            <li><a href="#">Technology</a></li>
+                            <li><a href="#">Health & Wellness</a></li>
+                            <li><a href="#">Education</a></li>
+                            <li><a href="#">Fitness</a></li>
+                            <li><a href="#">Lifestyle</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-5">
+                    <div class="footer-newsletter">
+                        <h5>Newsletter</h5>
+                        <p>Subscribe to get updates on our latest solutions and industry insights.</p>
+                        <form class="newsletter-form" id="newsletterForm">
+                            <input type="email" class="newsletter-input" placeholder="Your email address" required>
+                            <button type="submit" class="newsletter-btn">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </form>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="privacyCheck" required>
+                            <label class="form-check-label" for="privacyCheck" style="color: var(--text-color); font-size: 0.8rem;">
+                                I agree to the privacy policy
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Solution Hub. All Rights Reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- Technology Modal -->
+    <div class="modal fade" id="techModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-category-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="modal-title">Technology & AI Solutions</h4>
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Technology" class="img-fluid">
+                    <p>Our Technology & AI solutions leverage cutting-edge innovations to transform your business operations and drive growth through intelligent automation and data-driven insights.</p>
+                    <p>Key offerings include:</p>
+                    <ul>
+                        <li>Artificial Intelligence Implementation</li>
+                        <li>Machine Learning Solutions</li>
+                        <li>IoT Integration</li>
+                        <li>Data Analytics Platforms</li>
+                        <li>Automation Systems</li>
+                    </ul>
+                    
+                    <div class="trending-topics">
+                        <h5>Popular Technology Solutions</h5>
+                        <div>
+                            <span class="topic-badge">AI Chatbots</span>
+                            <span class="topic-badge">Predictive Analytics</span>
+                            <span class="topic-badge">Smart Automation</span>
+                            <span class="topic-badge">Data Visualization</span>
+                            <span class="topic-badge">IoT Platforms</span>
+                        </div>
+                    </div>
+
+                    <!-- Consultation Form -->
+                    <div class="consultation-form">
+                        <h5 class="form-title">Request Technology Consultation</h5>
+                        <form id="techForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Full Name</label>
+                                        <input type="text" class="form-control" placeholder="Enter your name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Email Address</label>
+                                        <input type="email" class="form-control" placeholder="Enter your email" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Company</label>
+                                        <input type="text" class="form-control" placeholder="Your company name">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" placeholder="Your phone number">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Interest Area</label>
+                                <select class="form-select" required>
+                                    <option value="">Select your interest</option>
+                                    <option value="ai">Artificial Intelligence</option>
+                                    <option value="ml">Machine Learning</option>
+                                    <option value="iot">IoT Solutions</option>
+                                    <option value="analytics">Data Analytics</option>
+                                    <option value="automation">Process Automation</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Project Description</label>
+                                <textarea class="form-control" rows="3" placeholder="Tell us about your project..."></textarea>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="techAgreement" required>
+                                <label class="form-check-label" for="techAgreement">
+                                    I agree to receive communications about technology solutions
+                                </label>
+                            </div>
+                            <button type="submit" class="submit-btn">
+                                <i class="fas fa-paper-plane me-2"></i>Submit Request
+                            </button>
+                        </form>
+                        <div class="success-message" id="techSuccess">
+                            <i class="fas fa-check-circle"></i>
+                            <h5>Request Submitted Successfully!</h5>
+                            <p>Our technology expert will contact you within 24 hours to discuss your project requirements.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Business Solutions Modal -->
+    <div class="modal fade" id="businessModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-category-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="modal-title">Business Solutions</h4>
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Business" class="img-fluid">
+                    <p>Transform your business operations with our comprehensive suite of business solutions designed to optimize processes, enhance efficiency, and drive sustainable growth.</p>
+                    <p>Key offerings include:</p>
+                    <ul>
+                        <li>Business Process Optimization</li>
+                        <li>Strategic Planning & Consulting</li>
+                        <li>Operational Excellence</li>
+                        <li>Change Management</li>
+                        <li>Performance Analytics</li>
+                    </ul>
+                    
+                    <div class="trending-topics">
+                        <h5>Popular Business Solutions</h5>
+                        <div>
+                            <span class="topic-badge">Process Automation</span>
+                            <span class="topic-badge">Strategic Planning</span>
+                            <span class="topic-badge">Performance Metrics</span>
+                            <span class="topic-badge">Change Management</span>
+                            <span class="topic-badge">Business Analytics</span>
+                        </div>
+                    </div>
+
+                    <!-- Consultation Form -->
+                    <div class="consultation-form">
+                        <h5 class="form-title">Request Business Consultation</h5>
+                        <form id="businessForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Full Name</label>
+                                        <input type="text" class="form-control" placeholder="Enter your name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Email Address</label>
+                                        <input type="email" class="form-control" placeholder="Enter your email" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Company Size</label>
+                                        <select class="form-select" required>
+                                            <option value="">Select company size</option>
+                                            <option value="startup">Startup (1-10 employees)</option>
+                                            <option value="small">Small Business (11-50)</option>
+                                            <option value="medium">Medium Business (51-200)</option>
+                                            <option value="large">Large Enterprise (201+)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Industry</label>
+                                        <input type="text" class="form-control" placeholder="Your industry">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Business Challenge</label>
+                                <select class="form-select" required>
+                                    <option value="">Select main challenge</option>
+                                    <option value="efficiency">Operational Efficiency</option>
+                                    <option value="growth">Business Growth</option>
+                                    <option value="process">Process Optimization</option>
+                                    <option value="strategy">Strategic Planning</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Additional Details</label>
+                                <textarea class="form-control" rows="3" placeholder="Describe your business needs..."></textarea>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="businessAgreement" required>
+                                <label class="form-check-label" for="businessAgreement">
+                                    I agree to receive business consultation offers
+                                </label>
+                            </div>
+                            <button type="submit" class="submit-btn">
+                                <i class="fas fa-briefcase me-2"></i>Request Consultation
+                            </button>
+                        </form>
+                        <div class="success-message" id="businessSuccess">
+                            <i class="fas fa-check-circle"></i>
+                            <h5>Consultation Requested!</h5>
+                            <p>Our business consultant will reach out to you shortly to schedule a meeting.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Health Modal -->
+    <div class="modal fade health-modal" id="healthModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-category-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="modal-title">Health & Wellness Solutions</h4>
+                    <img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Health" class="img-fluid">
+                    <p>Our comprehensive health solutions provide evidence-based guidance for physical and mental well-being, preventive care, and healthy lifestyle choices.</p>
+                    <p>Key offerings include:</p>
+                    <ul>
+                        <li>Personalized nutrition plans</li>
+                        <li>Mental health support programs</li>
+                        <li>Preventive healthcare strategies</li>
+                        <li>Chronic condition management</li>
+                        <li>Wellness coaching</li>
+                    </ul>
+                    
+                    <div class="trending-topics">
+                        <h5>Popular Health Topics</h5>
+                        <div>
+                            <span class="topic-badge">Immune System</span>
+                            <span class="topic-badge">Sleep Quality</span>
+                            <span class="topic-badge">Stress Management</span>
+                            <span class="topic-badge">Healthy Aging</span>
+                            <span class="topic-badge">Mindful Eating</span>
+                        </div>
+                    </div>
+
+                    <!-- Consultation Form -->
+                    <div class="consultation-form">
+                        <h5 class="form-title">Get Personalized Health Guidance</h5>
+                        <form id="healthForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Full Name</label>
+                                        <input type="text" class="form-control" placeholder="Enter your name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Email Address</label>
+                                        <input type="email" class="form-control" placeholder="Enter your email" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Age Group</label>
+                                        <select class="form-select" required>
+                                            <option value="">Select age group</option>
+                                            <option value="teen">Teen (13-19)</option>
+                                            <option value="young">Young Adult (20-35)</option>
+                                            <option value="adult">Adult (36-50)</option>
+                                            <option value="senior">Senior (50+)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Health Focus Area</label>
+                                        <select class="form-select" required>
+                                            <option value="">Select focus area</option>
+                                            <option value="nutrition">Nutrition & Diet</option>
+                                            <option value="fitness">Physical Fitness</option>
+                                            <option value="mental">Mental Health</option>
+                                            <option value="sleep">Sleep Improvement</option>
+                                            <option value="chronic">Chronic Conditions</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Health Goals</label>
+                                <textarea class="form-control" rows="3" placeholder="Describe your health goals and challenges..."></textarea>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="healthAgreement" required>
+                                <label class="form-check-label" for="healthAgreement">
+                                    I agree to receive personalized health recommendations
+                                </label>
+                            </div>
+                            <button type="submit" class="submit-btn">
+                                <i class="fas fa-heartbeat me-2"></i>Get Health Plan
+                            </button>
+                        </form>
+                        <div class="success-message" id="healthSuccess">
+                            <i class="fas fa-check-circle"></i>
+                            <h5>Health Assessment Submitted!</h5>
+                            <p>Our health expert will review your information and send personalized recommendations within 24 hours.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fitness Modal -->
+    <div class="modal fade fitness-modal" id="fitnessModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-category-icon">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="modal-title">Fitness & Training Programs</h4>
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Fitness" class="img-fluid">
+                    <p>Transform your fitness journey with personalized workout plans, expert training guidance, and comprehensive fitness solutions tailored to your goals and fitness level.</p>
+                    <p>Key offerings include:</p>
+                    <ul>
+                        <li>Custom workout routines</li>
+                        <li>Strength training programs</li>
+                        <li>Cardiovascular exercises</li>
+                        <li>Flexibility and mobility training</li>
+                        <li>Progress tracking systems</li>
+                    </ul>
+                    
+                    <div class="trending-topics">
+                        <h5>Popular Fitness Programs</h5>
+                        <div>
+                            <span class="topic-badge">Home Workouts</span>
+                            <span class="topic-badge">Weight Loss</span>
+                            <span class="topic-badge">Muscle Building</span>
+                            <span class="topic-badge">Yoga & Pilates</span>
+                            <span class="topic-badge">HIIT Training</span>
+                        </div>
+                    </div>
+
+                    <!-- Consultation Form -->
+                    <div class="consultation-form">
+                        <h5 class="form-title">Get Your Fitness Plan</h5>
+                        <form id="fitnessForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Full Name</label>
+                                        <input type="text" class="form-control" placeholder="Enter your name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Email Address</label>
+                                        <input type="email" class="form-control" placeholder="Enter your email" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Fitness Level</label>
+                                        <select class="form-select" required>
+                                            <option value="">Select fitness level</option>
+                                            <option value="beginner">Beginner</option>
+                                            <option value="intermediate">Intermediate</option>
+                                            <option value="advanced">Advanced</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Primary Goal</label>
+                                        <select class="form-select" required>
+                                            <option value="">Select main goal</option>
+                                            <option value="weight-loss">Weight Loss</option>
+                                            <option value="muscle-gain">Muscle Building</option>
+                                            <option value="endurance">Endurance</option>
+                                            <option value="toning">Body Toning</option>
+                                            <option value="maintenance">Maintenance</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Available Time (weekly)</label>
+                                        <select class="form-select" required>
+                                            <option value="">Select time commitment</option>
+                                            <option value="2-3">2-3 hours</option>
+                                            <option value="3-5">3-5 hours</option>
+                                            <option value="5-7">5-7 hours</option>
+                                            <option value="7+">7+ hours</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Equipment Available</label>
+                                        <select class="form-select">
+                                            <option value="none">No Equipment</option>
+                                            <option value="basic">Basic (Dumbbells, Mat)</option>
+                                            <option value="full">Full Gym Access</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="fitnessAgreement" required>
+                                <label class="form-check-label" for="fitnessAgreement">
+                                    I agree to receive personalized fitness plans and updates
+                                </label>
+                            </div>
+                            <button type="submit" class="submit-btn">
+                                <i class="fas fa-dumbbell me-2"></i>Create Fitness Plan
+                            </button>
+                        </form>
+                        <div class="success-message" id="fitnessSuccess">
+                            <i class="fas fa-check-circle"></i>
+                            <h5>Fitness Assessment Complete!</h5>
+                            <p>Your personalized workout plan will be delivered to your email within 12 hours.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Education Modal -->
+    <div class="modal fade education-modal" id="educationModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-category-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="modal-title">Education & Learning Solutions</h4>
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Education" class="img-fluid">
+                    <p>Enhance your learning experience with proven study techniques, educational resources, and personalized learning strategies designed to maximize academic and professional success.</p>
+                    <p>Key offerings include:</p>
+                    <ul>
+                        <li>Study skill development</li>
+                        <li>Exam preparation strategies</li>
+                        <li>Learning style assessment</li>
+                        <li>Time management for students</li>
+                        <li>Career-focused education planning</li>
+                    </ul>
+                    
+                    <div class="trending-topics">
+                        <h5>Popular Learning Topics</h5>
+                        <div>
+                            <span class="topic-badge">Study Techniques</span>
+                            <span class="topic-badge">Exam Preparation</span>
+                            <span class="topic-badge">Online Learning</span>
+                            <span class="topic-badge">Memory Improvement</span>
+                            <span class="topic-badge">Career Planning</span>
+                        </div>
+                    </div>
+
+                    <!-- Consultation Form -->
+                    <div class="consultation-form">
+                        <h5 class="form-title">Get Learning Strategy</h5>
+                        <form id="educationForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Full Name</label>
+                                        <input type="text" class="form-control" placeholder="Enter your name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Email Address</label>
+                                        <input type="email" class="form-control" placeholder="Enter your email" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Education Level</label>
+                                        <select class="form-select" required>
+                                            <option value="">Select education level</option>
+                                            <option value="school">School Student</option>
+                                            <option value="undergrad">Undergraduate</option>
+                                            <option value="grad">Graduate</option>
+                                            <option value="professional">Professional</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Learning Goal</label>
+                                        <select class="form-select" required>
+                                            <option value="">Select main goal</option>
+                                            <option value="grades">Improve Grades</option>
+                                            <option value="exams">Exam Preparation</option>
+                                            <option value="skills">Skill Development</option>
+                                            <option value="career">Career Advancement</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Subjects/Areas of Interest</label>
+                                <textarea class="form-control" rows="3" placeholder="List the subjects or topics you want to focus on..."></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Current Challenges</label>
+                                <textarea class="form-control" rows="2" placeholder="Describe any learning challenges you're facing..."></textarea>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="educationAgreement" required>
+                                <label class="form-check-label" for="educationAgreement">
+                                    I agree to receive learning resources and study tips
+                                </label>
+                            </div>
+                            <button type="submit" class="submit-btn">
+                                <i class="fas fa-graduation-cap me-2"></i>Get Study Plan
+                            </button>
+                        </form>
+                        <div class="success-message" id="educationSuccess">
+                            <i class="fas fa-check-circle"></i>
+                            <h5>Learning Assessment Received!</h5>
+                            <p>Your personalized study strategy and resource recommendations will be emailed to you shortly.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add similar modals for Lifestyle, Sports, and Daily Routine categories -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Back to top button functionality
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('active');
+            } else {
+                backToTopButton.classList.remove('active');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Form submission handling for all forms
+        const forms = ['techForm', 'businessForm', 'healthForm', 'fitnessForm', 'educationForm'];
+        
+        forms.forEach(formId => {
+            const form = document.getElementById(formId);
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const submitBtn = this.querySelector('.submit-btn');
+                    const successMsg = document.getElementById(formId.replace('Form', 'Success'));
+                    
+                    // Show loading state
+                    const originalText = submitBtn.innerHTML;
+                    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
+                    submitBtn.disabled = true;
+                    
+                    // Simulate form submission
+                    setTimeout(() => {
+                        this.style.display = 'none';
+                        if (successMsg) {
+                            successMsg.style.display = 'block';
+                        }
+                        
+                        // Reset button after 3 seconds
+                        setTimeout(() => {
+                            submitBtn.innerHTML = originalText;
+                            submitBtn.disabled = false;
+                            this.style.display = 'block';
+                            if (successMsg) {
+                                successMsg.style.display = 'none';
+                            }
+                            this.reset();
+                        }, 5000);
+                    }, 2000);
+                });
+            }
+        });
+
+        // Newsletter form submission
+        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const submitBtn = this.querySelector('.newsletter-btn');
+            const originalHTML = submitBtn.innerHTML;
+            
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                submitBtn.innerHTML = '<i class="fas fa-check"></i>';
+                alert('Thank you for subscribing to our newsletter!');
+                this.reset();
+                
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalHTML;
+                    submitBtn.disabled = false;
+                }, 2000);
+            }, 1500);
+        });
+
+        // Add animation to topic badges
+        document.querySelectorAll('.topic-badge').forEach(badge => {
+            badge.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 200);
+            });
+        });
+
+        // Add loading animation to explore buttons
+        document.querySelectorAll('.btn-explore').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const originalText = this.innerHTML;
+                this.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
+                
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                }, 1500);
+            });
+        });
+    </script>
+</body>
+</html>

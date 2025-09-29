@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Portfolio - Solution Hub</title>
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%230000ff'>💡</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a192f 0%, #112240 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #0a192f 0%, #112240 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #64ffda;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #64ffda;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: #ccd6f6;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #64ffda;
+        }
+
+        /* Hero Section */
+        .portfolio-hero {
+            padding: 8rem 0 4rem 0;
+            text-align: center;
+            background: linear-gradient(rgba(10, 25, 47, 0.9), rgba(17, 34, 64, 0.9)), url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        .portfolio-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+            color: #64ffda;
+        }
+
+        .portfolio-hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease 0.3s both;
+            color: #ccd6f6;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 3rem 0;
+            background: linear-gradient(135deg, #112240 0%, #0a192f 100%);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #64ffda;
+            display: block;
+        }
+
+        .stat-label {
+            color: #ccd6f6;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Portfolio Filters */
+        .filters {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .filter-btn {
+            background: transparent;
+            color: #64ffda;
+            border: 2px solid #64ffda;
+            padding: 10px 25px;
+            margin: 0 10px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #64ffda;
+            color: #0a192f;
+        }
+
+        /* Portfolio Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .portfolio-item {
+            background: linear-gradient(135deg, #112240 0%, #0a192f 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.4s ease;
+            border: 1px solid #1e3a5c;
+            position: relative;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border-color: #64ffda;
+        }
+
+        .portfolio-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .portfolio-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover .portfolio-image img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(transparent, rgba(10, 25, 47, 0.9));
+            display: flex;
+            align-items: flex-end;
+            padding: 2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-content {
+            padding: 2rem;
+        }
+
+        .portfolio-content h3 {
+            color: #64ffda;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .portfolio-content p {
+            color: #ccd6f6;
+            margin-bottom: 1.5rem;
+        }
+
+        .portfolio-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            background: rgba(100, 255, 218, 0.1);
+            color: #64ffda;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid #64ffda;
+        }
+
+        .portfolio-link {
+            display: inline-block;
+            background: #64ffda;
+            color: #0a192f;
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid #64ffda;
+            cursor: pointer;
+        }
+
+        .portfolio-link:hover {
+            background: transparent;
+            color: #64ffda;
+        }
+
+        /* Client Testimonials */
+        .testimonials-section {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #0a192f 0%, #112240 100%);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: linear-gradient(135deg, #112240 0%, #0a192f 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid #1e3a5c;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            border-color: #64ffda;
+        }
+
+        .testimonial-text {
+            color: #ccd6f6;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            border: 2px solid #64ffda;
+        }
+
+        .author-info h4 {
+            color: #64ffda;
+            margin-bottom: 0.2rem;
+        }
+
+        .author-info p {
+            color: #8892b0;
+            font-size: 0.9rem;
+        }
+
+        /* Industries Section */
+        .industries-section {
+            padding: 4rem 0;
+        }
+
+        .industries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .industry-card {
+            background: linear-gradient(135deg, #112240 0%, #0a192f 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid #1e3a5c;
+            transition: all 0.3s ease;
+        }
+
+        .industry-card:hover {
+            border-color: #64ffda;
+            transform: translateY(-5px);
+        }
+
+        .industry-icon {
+            font-size: 3rem;
+            color: #64ffda;
+            margin-bottom: 1rem;
+        }
+
+        .industry-card h3 {
+            color: #64ffda;
+            margin-bottom: 1rem;
+        }
+
+        /* CTA Section */
+        .portfolio-cta {
+            background: linear-gradient(135deg, #64ffda 0%, #112240 100%);
+            color: #0a192f;
+            text-align: center;
+            padding: 4rem 0;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 2px solid #64ffda;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #0a192f;
+            color: #64ffda;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            border: 2px solid #64ffda;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background: #64ffda;
+            color: #0a192f;
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(100, 255, 218, 0.3);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #112240 0%, #0a192f 100%);
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 800px;
+            border: 2px solid #64ffda;
+            position: relative;
+            animation: modalFadeIn 0.5s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            color: #64ffda;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: #ccd6f6;
+        }
+
+        .modal-header {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #64ffda;
+            padding-bottom: 1rem;
+        }
+
+        .modal-header h2 {
+            color: #64ffda;
+            font-size: 2rem;
+        }
+
+        .modal-body {
+            color: #ccd6f6;
+            line-height: 1.6;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a192f;
+            color: #64ffda;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid #64ffda;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .portfolio-hero {
+                padding: 6rem 0 3rem 0;
+            }
+
+            .portfolio-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-btn {
+                display: block;
+                margin: 10px auto;
+                width: 80%;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+        }
+    </style>
+    
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Solution Hub</div>
+                <ul class="nav-links">
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="about us .html">About</a></li>
+                    <li><a href="portfolio.html" style="color: #64ffda;">Portfolio</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="portfolio-hero">
+        <div class="container">
+            <h1>Our Portfolio</h1>
+            <p>Discover our successful projects and see how we've helped businesses transform through innovative solutions</p>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number" data-count="150">0</span>
+                    <span class="stat-label">Projects Completed</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-count="50">0</span>
+                    <span class="stat-label">Happy Clients</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-count="12">0</span>
+                    <span class="stat-label">Years Experience</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-count="98">0</span>
+                    <span class="stat-label">Success Rate</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Filters -->
+    <section class="section">
+        <div class="container">
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="web">Web Development</button>
+                <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
+                <button class="filter-btn" data-filter="ai">AI Solutions</button>
+                <button class="filter-btn" data-filter="cloud">Cloud Solutions</button>
+            </div>
+
+            <!-- Portfolio Grid -->
+            <div class="portfolio-grid">
+                <!-- Project 1 -->
+                <div class="portfolio-item fade-in" data-category="web">
+                    <div class="portfolio-image">
+                        <img src="https://images.unsplash.com/photo-1556655848-f3a79cc6d1a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="E-commerce Platform">
+                        <div class="portfolio-overlay">
+                            <button class="portfolio-link view-case-study" data-project="1">View Case Study</button>
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>E-commerce Platform</h3>
+                        <p>Complete e-commerce solution with inventory management, payment gateway integration, and analytics dashboard.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">MongoDB</span>
+                            <span class="tag">Payment Gateway</span>
+                        </div>
+                        <button class="portfolio-link view-project" data-project="1">View Project</button>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="portfolio-item fade-in" data-category="mobile">
+                    <div class="portfolio-image">
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Fitness App">
+                        <div class="portfolio-overlay">
+                            <button class="portfolio-link view-case-study" data-project="2">View Case Study</button>
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Fitness Tracking App</h3>
+                        <p>Mobile application for fitness enthusiasts with workout plans, progress tracking, and social features.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">React Native</span>
+                            <span class="tag">Firebase</span>
+                            <span class="tag">Health API</span>
+                            <span class="tag">Social Features</span>
+                        </div>
+                        <button class="portfolio-link view-project" data-project="2">View Project</button>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="portfolio-item fade-in" data-category="ai">
+                    <div class="portfolio-image">
+                        <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="AI Chatbot">
+                        <div class="portfolio-overlay">
+                            <button class="portfolio-link view-case-study" data-project="3">View Case Study</button>
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>AI Customer Service Chatbot</h3>
+                        <p>Intelligent chatbot solution for customer support with natural language processing and sentiment analysis.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">TensorFlow</span>
+                            <span class="tag">NLP</span>
+                            <span class="tag">AWS</span>
+                        </div>
+                        <button class="portfolio-link view-project" data-project="3">View Project</button>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="portfolio-item fade-in" data-category="cloud">
+                    <div class="portfolio-image">
+                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Cloud Migration">
+                        <div class="portfolio-overlay">
+                            <button class="portfolio-link view-case-study" data-project="4">View Case Study</button>
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Enterprise Cloud Migration</h3>
+                        <p>Complete migration of enterprise infrastructure to cloud with enhanced security and scalability.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">AWS</span>
+                            <span class="tag">Docker</span>
+                            <span class="tag">Kubernetes</span>
+                            <span class="tag">Security</span>
+                        </div>
+                        <button class="portfolio-link view-project" data-project="4">View Project</button>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="portfolio-item fade-in" data-category="web">
+                    <div class="portfolio-image">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Analytics Dashboard">
+                        <div class="portfolio-overlay">
+                            <button class="portfolio-link view-case-study" data-project="5">View Case Study</button>
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Business Analytics Dashboard</h3>
+                        <p>Real-time analytics dashboard with data visualization, reporting, and predictive analytics features.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Vue.js</span>
+                            <span class="tag">D3.js</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">Data Visualization</span>
+                        </div>
+                        <button class="portfolio-link view-project" data-project="5">View Project</button>
+                    </div>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="portfolio-item fade-in" data-category="mobile">
+                    <div class="portfolio-image">
+                        <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Banking App">
+                        <div class="portfolio-overlay">
+                            <button class="portfolio-link view-case-study" data-project="6">View Case Study</button>
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Mobile Banking Application</h3>
+                        <p>Secure mobile banking solution with biometric authentication, transaction tracking, and financial planning.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Flutter</span>
+                            <span class="tag">Security</span>
+                            <span class="tag">Banking API</span>
+                            <span class="tag">Biometric</span>
+                        </div>
+                        <button class="portfolio-link view-project" data-project="6">View Project</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title" style="text-align: center; color: #64ffda;">Client Testimonials</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-text">
+                        "Solution Hub transformed our business with their innovative e-commerce platform. The results exceeded our expectations and our sales increased by 150% within 6 months."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Client" class="author-avatar">
+                        <div class="author-info">
+                            <h4>Rahul Mehta</h4>
+                            <p>CEO, FashionStore</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-text">
+                        "The AI chatbot developed by Solution Hub reduced our customer support costs by 40% while improving customer satisfaction scores significantly."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Client" class="author-avatar">
+                        <div class="author-info">
+                            <h4>Priya Singh</h4>
+                            <p>CTO, TechSolutions Inc.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-text">
+                        "Their cloud migration expertise helped us achieve 99.9% uptime and reduced our infrastructure costs by 35%. Highly recommended!"
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Client" class="author-avatar">
+                        <div class="author-info">
+                            <h4>Amit Kumar</h4>
+                            <p>IT Director, Global Corp</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industries Section -->
+    <section class="industries-section">
+        <div class="container">
+            <h2 class="section-title" style="text-align: center; color: #64ffda;">Industries We Serve</h2>
+            <div class="industries-grid">
+                <div class="industry-card fade-in">
+                    <div class="industry-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <h3>E-commerce</h3>
+                    <p>Custom online store solutions</p>
+                </div>
+                <div class="industry-card fade-in">
+                    <div class="industry-icon"><i class="fas fa-university"></i></div>
+                    <h3>Banking & Finance</h3>
+                    <p>Secure financial applications</p>
+                </div>
+                <div class="industry-card fade-in">
+                    <div class="industry-icon"><i class="fas fa-heartbeat"></i></div>
+                    <h3>Healthcare</h3>
+                    <p>Medical technology solutions</p>
+                </div>
+                <div class="industry-card fade-in">
+                    <div class="industry-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h3>Education</h3>
+                    <p>E-learning platforms</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section">
+        <div class="container">
+            <div class="portfolio-cta fade-in">
+                <h2>Ready to Start Your Project?</h2>
+                <p>Let's discuss how we can bring your ideas to life with our expertise and innovative solutions.</p>
+                <button class="cta-button" onclick="openContactForm()">Start Your Project</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Solution Hub. All rights reserved. | Transforming Ideas into Digital Reality</p>
+        </div>
+    </footer>
+
+    <!-- Project Detail Modal -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2 id="modalTitle">Project Title</h2>
+            </div>
+            <div class="modal-body">
+                <img id="modalImage" src="" alt="Project Image" class="modal-image">
+                <div id="modalContent">
+                    <!-- Project details will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Portfolio Filtering
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const filterValue = button.getAttribute('data-filter');
+                
+                portfolioItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateY(0)';
+                        }, 100);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // Animated Counter
+        const counters = document.querySelectorAll('.stat-number');
+        const speed = 200;
+
+        const animateCounter = () => {
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-count');
+                const count = +counter.innerText;
+                const increment = target / speed;
+
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(animateCounter, 1);
+                } else {
+                    counter.innerText = target;
+                }
+            });
+        };
+
+        // Scroll animation
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const appearOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -100px 0px"
+        };
+
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add('visible');
+                    appearOnScroll.unobserve(entry.target);
+                    
+                    // Start counter animation when stats section is visible
+                    if (entry.target.classList.contains('stat-item')) {
+                        animateCounter();
+                    }
+                }
+            });
+        }, appearOptions);
+
+        fadeElements.forEach(element => {
+            appearOnScroll.observe(element);
+        });
+
+        // Header background change on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(10, 25, 47, 0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.4)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, #0a192f 0%, #112240 100%)';
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.3)';
+            }
+        });
+
+        // Contact form function
+        function openContactForm() {
+            alert('Thank you for your interest! Please contact us at info@solutionhub.com or call +91-9876543210 to discuss your project.');
+        }
+
+        // Initialize counters on page load if stats are visible
+        window.addEventListener('load', function() {
+            const statsSection = document.querySelector('.stats-section');
+            if (statsSection.getBoundingClientRect().top < window.innerHeight) {
+                animateCounter();
+            }
+        });
+
+        // Project data for modals
+        const projects = {
+            1: {
+                title: "E-commerce Platform",
+                image: "https://images.unsplash.com/photo-1556655848-f3a79cc6d1a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                description: "We developed a comprehensive e-commerce platform for a leading fashion retailer that transformed their online presence and significantly boosted sales.",
+                details: `
+                    <h3>Project Overview</h3>
+                    <p>This project involved creating a full-featured e-commerce solution from scratch, including:</p>
+                    <ul>
+                        <li>Custom product catalog with advanced filtering</li>
+                        <li>Secure payment gateway integration</li>
+                        <li>Real-time inventory management system</li>
+                        <li>Customer relationship management (CRM)</li>
+                        <li>Analytics dashboard for business insights</li>
+                    </ul>
+                    <h3>Technologies Used</h3>
+                    <p>React, Node.js, MongoDB, Stripe API, AWS</p>
+                    <h3>Results</h3>
+                    <p>The platform resulted in a 150% increase in online sales within 6 months and improved customer retention by 40%.</p>
+                `,
+                caseStudy: `
+                    <h3>Client Challenge</h3>
+                    <p>The client was struggling with an outdated e-commerce system that couldn't handle their growing product catalog and customer base.</p>
+                    <h3>Our Solution</h3>
+                    <p>We designed a scalable, cloud-based platform with a modern UI/UX that improved the shopping experience and streamlined backend operations.</p>
+                    <h3>Key Features</h3>
+                    <ul>
+                        <li>Responsive design optimized for all devices</li>
+                        <li>AI-powered product recommendations</li>
+                        <li>Multi-currency and multi-language support</li>
+                        <li>Advanced analytics and reporting</li>
+                    </ul>
+                `
+            },
+            2: {
+                title: "Fitness Tracking App",
+                image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                description: "A comprehensive fitness application that helps users track workouts, monitor progress, and connect with a community of fitness enthusiasts.",
+                details: `
+                    <h3>Project Overview</h3>
+                    <p>This mobile application was designed to provide fitness enthusiasts with a complete workout companion:</p>
+                    <ul>
+                        <li>Custom workout plans based on user goals</li>
+                        <li>Progress tracking with detailed analytics</li>
+                        <li>Integration with health APIs and wearable devices</li>
+                        <li>Social features for community engagement</li>
+                        <li>Nutrition tracking and meal planning</li>
+                    </ul>
+                    <h3>Technologies Used</h3>
+                    <p>React Native, Firebase, HealthKit API, Google Fit API</p>
+                    <h3>Results</h3>
+                    <p>The app gained 50,000+ downloads in the first 3 months and maintains a 4.8-star rating on app stores.</p>
+                `,
+                caseStudy: `
+                    <h3>Client Challenge</h3>
+                    <p>The fitness industry lacked a comprehensive app that combined workout tracking with community features.</p>
+                    <h3>Our Solution</h3>
+                    <p>We created an all-in-one fitness platform that personalized the user experience while fostering a supportive community.</p>
+                    <h3>Key Features</h3>
+                    <ul>
+                        <li>AI-generated workout plans</li>
+                        <li>Real-time activity tracking</li>
+                        <li>Social challenges and competitions</li>
+                        <li>Integration with popular fitness wearables</li>
+                    </ul>
+                `
+            },
+            3: {
+                title: "AI Customer Service Chatbot",
+                image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                description: "An intelligent chatbot solution that uses natural language processing to provide efficient customer support.",
+                details: `
+                    <h3>Project Overview</h3>
+                    <p>This AI-powered chatbot was developed to handle customer inquiries 24/7, reducing response times and improving satisfaction:</p>
+                    <ul>
+                        <li>Natural language processing for understanding customer queries</li>
+                        <li>Sentiment analysis to detect customer emotions</li>
+                        <li>Seamless handoff to human agents when needed</li>
+                        <li>Integration with existing CRM and support systems</li>
+                        <li>Continuous learning from customer interactions</li>
+                    </ul>
+                    <h3>Technologies Used</h3>
+                    <p>Python, TensorFlow, AWS Lambda, Dialogflow</p>
+                    <h3>Results</h3>
+                    <p>The chatbot reduced customer support costs by 40% while improving customer satisfaction scores by 25%.</p>
+                `,
+                caseStudy: `
+                    <h3>Client Challenge</h3>
+                    <p>The client's customer support team was overwhelmed with repetitive inquiries, leading to long wait times.</p>
+                    <h3>Our Solution</h3>
+                    <p>We implemented an AI chatbot that could handle common queries instantly, freeing human agents for complex issues.</p>
+                    <h3>Key Features</h3>
+                    <ul>
+                        <li>Multi-language support</li>
+                        <li>Context-aware conversations</li>
+                        <li>Integration with knowledge base</li>
+                        <li>Detailed analytics on customer interactions</li>
+                    </ul>
+                `
+            },
+            4: {
+                title: "Enterprise Cloud Migration",
+                image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                description: "Complete migration of enterprise infrastructure to cloud with enhanced security and scalability.",
+                details: `
+                    <h3>Project Overview</h3>
+                    <p>This project involved migrating a large enterprise's entire IT infrastructure to the cloud:</p>
+                    <ul>
+                        <li>Assessment of existing infrastructure and applications</li>
+                        <li>Development of migration strategy and timeline</li>
+                        <li>Implementation of cloud security best practices</li>
+                        <li>Optimization for performance and cost efficiency</li>
+                        <li>Training and documentation for IT staff</li>
+                    </ul>
+                    <h3>Technologies Used</h3>
+                    <p>AWS, Docker, Kubernetes, Terraform, CloudFormation</p>
+                    <h3>Results</h3>
+                    <p>The migration achieved 99.9% uptime and reduced infrastructure costs by 35% while improving scalability.</p>
+                `,
+                caseStudy: `
+                    <h3>Client Challenge</h3>
+                    <p>The client's on-premise infrastructure was costly to maintain and couldn't scale with business growth.</p>
+                    <h3>Our Solution</h3>
+                    <p>We designed a phased migration approach that minimized disruption while maximizing cloud benefits.</p>
+                    <h3>Key Features</h3>
+                    <ul>
+                        <li>Hybrid cloud architecture during transition</li>
+                        <li>Automated deployment pipelines</li>
+                        <li>Comprehensive monitoring and alerting</li>
+                        <li>Disaster recovery and backup solutions</li>
+                    </ul>
+                `
+            },
+            5: {
+                title: "Business Analytics Dashboard",
+                image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                description: "Real-time analytics dashboard with data visualization, reporting, and predictive analytics features.",
+                details: `
+                    <h3>Project Overview</h3>
+                    <p>This dashboard provides business leaders with actionable insights through data visualization:</p>
+                    <ul>
+                        <li>Integration with multiple data sources</li>
+                        <li>Interactive charts and graphs</li>
+                        <li>Customizable reporting features</li>
+                        <li>Predictive analytics for forecasting</li>
+                        <li>Role-based access control</li>
+                    </ul>
+                    <h3>Technologies Used</h3>
+                    <p>Vue.js, D3.js, Python, PostgreSQL, Redis</p>
+                    <h3>Results</h3>
+                    <p>The dashboard helped reduce decision-making time by 60% and identified cost-saving opportunities worth $2M annually.</p>
+                `,
+                caseStudy: `
+                    <h3>Client Challenge</h3>
+                    <p>The client struggled with siloed data sources and lacked a unified view of business performance.</p>
+                    <h3>Our Solution</h3>
+                    <p>We created a centralized analytics platform that aggregated data from all business units into actionable insights.</p>
+                    <h3>Key Features</h3>
+                    <ul>
+                        <li>Real-time data processing</li>
+                        <li>Drag-and-drop report builder</li>
+                        <li>Automated alerting for KPI deviations</li>
+                        <li>Mobile-responsive design</li>
+                    </ul>
+                `
+            },
+            6: {
+                title: "Mobile Banking Application",
+                image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                description: "Secure mobile banking solution with biometric authentication, transaction tracking, and financial planning.",
+                details: `
+                    <h3>Project Overview</h3>
+                    <p>This mobile banking app provides customers with secure access to their financial services:</p>
+                    <ul>
+                        <li>Biometric authentication (fingerprint, face ID)</li>
+                        <li>Real-time transaction monitoring</li>
+                        <li>Budgeting and financial planning tools</li>
+                        <li>Bill payment and money transfer capabilities</li>
+                        <li>Investment tracking and management</li>
+                    </ul>
+                    <h3>Technologies Used</h3>
+                    <p>Flutter, Banking APIs, OAuth 2.0, Encryption</p>
+                    <h3>Results</h3>
+                    <p>The app increased mobile banking adoption by 45% and received the highest security certification in the industry.</p>
+                `,
+                caseStudy: `
+                    <h3>Client Challenge</h3>
+                    <p>The bank needed a modern mobile solution to compete with fintech startups while maintaining stringent security standards.</p>
+                    <h3>Our Solution</h3>
+                    <p>We developed a cross-platform app with bank-grade security and an intuitive user experience.</p>
+                    <h3>Key Features</h3>
+                    <ul>
+                        <li>End-to-end encryption</li>
+                        <li>Fraud detection algorithms</li>
+                        <li>Personalized financial insights</li>
+                        <li>Seamless integration with core banking systems</li>
+                    </ul>
+                `
+            }
+        };
+
+        // Modal functionality
+        const modal = document.getElementById('projectModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalImage = document.getElementById('modalImage');
+        const modalContent = document.getElementById('modalContent');
+        const closeModal = document.querySelector('.close-modal');
+
+        // View Project buttons
+        document.querySelectorAll('.view-project').forEach(button => {
+            button.addEventListener('click', function() {
+                const projectId = this.getAttribute('data-project');
+                openProjectModal(projectId, 'details');
+            });
+        });
+
+        // View Case Study buttons
+        document.querySelectorAll('.view-case-study').forEach(button => {
+            button.addEventListener('click', function() {
+                const projectId = this.getAttribute('data-project');
+                openProjectModal(projectId, 'caseStudy');
+            });
+        });
+
+        function openProjectModal(projectId, type) {
+            const project = projects[projectId];
+            if (project) {
+                modalTitle.textContent = project.title;
+                modalImage.src = project.image;
+                
+                if (type === 'details') {
+                    modalContent.innerHTML = project.details;
+                } else {
+                    modalContent.innerHTML = project.caseStudy;
+                }
+                
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            }
+        }
+
+        // Close modal
+        closeModal.addEventListener('click', function() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Restore scrolling
+            }
+        });
+    </script>
+</body>
+</html>
