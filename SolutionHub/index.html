@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solution Hub - Har Problem ka Easy Solution</title>
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%230000ff'>💡</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0F172A;
+            --secondary: #3B82F6;
+            --accent: #10B981;
+            --text-light: #F8FAFC;
+            --text-medium: #CBD5E1;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --card-bg: rgba(15, 23, 42, 0.7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, #1E293B 100%);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 100px 0;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(15, 23, 42, 0.98);
+            padding: 5px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            color: var(--secondary);
+            margin-right: 10px;
+            font-size: 32px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-link {
+            position: relative;
+            color: var(--text-medium);
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            padding: 5px 0;
+        }
+
+        .nav-link:hover {
+            color: var(--text-light);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: var(--text-light);
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            color: var(--text-medium);
+            font-size: 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(16, 185, 129, 0.2)),
+                         url('olav-ahrens-rotne-4Ennrbj1svk-unsplash.jpg');
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            color: var(--text-light);
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 16px 36px;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Categories Section */
+        .categories {
+            background: var(--primary);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .category-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            border-radius: 15px 15px 0 0;
+        }
+
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            transition: all 0.3s ease;
+        }
+
+        .category-icon i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .category-card:hover .category-icon {
+            transform: scale(1.1);
+            background: rgba(59, 130, 246, 0.2);
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .category-description {
+            font-size: 1rem;
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .category-features {
+            list-style: none;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .category-features li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .category-features li i {
+            color: var(--accent);
+            margin-right: 10px;
+        }
+
+        /* Stats Section */
+        .stats {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            color: var(--text-light);
+        }
+
+        .stats-container {
+            text-align: center;
+        }
+
+        .stats-title {
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Solutions Section */
+        .solutions {
+            background: var(--primary);
+        }
+
+        .solutions-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tab-button {
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50px;
+            color: var(--text-medium);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .solution-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .solution-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .solution-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .solution-icon i {
+            font-size: 1.8rem;
+            color: var(--secondary);
+        }
+
+        .solution-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .solution-description {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        .solution-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .solution-link i {
+            margin-left: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .solution-link:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Emergency Section */
+        .emergency {
+            background: linear-gradient(135deg, #EF4444, #DC2626);
+            color: white;
+            text-align: center;
+        }
+
+        .emergency-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .emergency-title {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        .emergency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .emergency-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .emergency-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .emergency-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .emergency-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+        .emergency-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--primary);
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            color: var(--secondary);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-medium);
+            cursor: pointer;
+        }
+
+        .modal-body {
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0A0F1C;
+            color: var(--text-medium);
+            padding: 80px 0 40px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+            color: var(--text-light);
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-medium);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-light);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--secondary);
+            transform: translateY(-5px);
+        }
+
+        .social-link i {
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .newsletter {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 30px;
+        }
+
+        .newsletter h3 {
+            margin-bottom: 20px;
+        }
+
+        .newsletter input {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .newsletter button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .newsletter button:hover {
+            opacity: 0.9;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-medium);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .categories-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: var(--primary);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 50px;
+                transition: left 0.3s ease;
+                gap: 30px;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container container">
+            <div class="logo">
+                <i class="fas fa-lightbulb logo-icon"></i>
+                Solution Hub
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="category.html" class="nav-link">Categories</a></li>
+                <li><a href="solutions.html" class="nav-link">Solutions</a></li>
+                <li><a href="about us .html" class="nav-link">About Us</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero section">
+        <div class="hero-bg"></div>
+        <div class="hero-content container">
+            <h1 class="hero-title gradient-text">Smart Solutions for Every Problem</h1>
+            <p class="hero-subtitle">Solutions to your everyday problems just one click away. From education to health, technology to daily life – we are here for you</p>
+            <a href="category.html" class="cta-button">See the Solutions</a>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="categories" class="categories section">
+        <div class="container">
+            <div class="section-title">
+                <h2 class="gradient-text">Problem Categories</h2>
+                <p>No matter the category, we’ve got the solution</p>
+            </div>
+            <div class="categories-grid">
+                <div class="category-card fade-in" data-category="education">
+                    <div class="category-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="category-title">Education</h3>
+                    <p class="category-description">Need help with studies? We’ve got everything you need!</p>
+                    <ul class="category-features">
+                        <li><i class="fas fa-check"></i> Notes aur Study Materials</li>
+                        <li><i class="fas fa-check"></i> MCQs aur Practice Tests</li>
+                        <li><i class="fas fa-check"></i> Online Quizzes</li>
+                        <li><i class="fas fa-check"></i> Exam Preparation Tips</li>
+                    </ul>
+                </div>
+                <div class="category-card fade-in" data-category="health">
+                    <div class="category-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3 class="category-title">Health & Fitness</h3>
+                    <p class="category-description">Improve your health with ease</p>
+                    <ul class="category-features">
+                        <li><i class="fas fa-check"></i> Diet Charts aur Nutrition</li>
+                        <li><i class="fas fa-check"></i> Exercise Guides</li>
+                        <li><i class="fas fa-check"></i> Basic Health Information</li>
+                        <li><i class="fas fa-check"></i> Home Remedies</li>
+                    </ul>
+                </div>
+                <div class="category-card fade-in" data-category="tech">
+                    <div class="category-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="category-title">Tech Support</h3>
+                    <p class="category-description">Tech problems? We’ll solve them!</p>
+                    <ul class="category-features">
+                        <li><i class="fas fa-check"></i> Computer Problems Solutions</li>
+                        <li><i class="fas fa-check"></i> Mobile Issues Fix</li>
+                        <li><i class="fas fa-check"></i> Internet Problems</li>
+                        <li><i class="fas fa-check"></i> Software Help</li>
+                    </ul>
+                </div>
+                <div class="category-card fade-in" data-category="daily">
+                    <div class="category-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3 class="category-title">Daily Life Solutions</h3>
+                    <p class="category-description">Make everyday life easier</p>
+                    <ul class="category-features">
+                        <li><i class="fas fa-check"></i> Cooking Tips and Recipes</li>
+                        <li><i class="fas fa-check"></i> Home Improvement Ideas</li>
+                        <li><i class="fas fa-check"></i> Shopping Guides</li>
+                        <li><i class="fas fa-check"></i> Time Management</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="stats" class="stats section">
+        <div class="container stats-container">
+            <h2 class="stats-title gradient-text">Our Community</h2>
+            <div class="stats-grid">
+                <div class="stat-item fade-in">
+                    <div class="stat-number">50K+</div>
+                    <div class="stat-label">Satisfied Users</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">Solutions Available</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Support Available</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section id="solutions" class="solutions section">
+        <div class="container">
+            <div class="section-title">
+                <h2 class="gradient-text">Popular Solutions</h2>
+                <p>Here are some of the most popular solutions people search for.</p>
+            </div>
+            
+            <div class="solutions-tabs">
+                <button class="tab-button active" data-tab="education">Education</button>
+                <button class="tab-button" data-tab="health">Health</button>
+                <button class="tab-button" data-tab="tech">Tech Support</button>
+                <button class="tab-button" data-tab="daily">Daily Life</button>
+            </div>
+            
+            <div class="tab-content active" id="education-tab">
+                <div class="solution-grid">
+                    <div class="solution-card fade-in">
+                        <div class="solution-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3 class="solution-title">Class 10 Science Notes</h3>
+                        <p class="solution-description">Complete chapter-wise notes with diagrams and important questions.</p>
+                        <a class="solution-link view-solution" data-solution="science-notes">Download Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="solution-card fade-in">
+                        <div class="solution-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <h3 class="solution-title">Math Formulas</h3>
+                        <p class="solution-description">All important math formulas from classes 6 to 12 in one place.</p>
+                        <a class="solution-link view-solution" data-solution="math-formulas">View Formulas <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="solution-card fade-in">
+                        <div class="solution-icon">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <h3 class="solution-title">Practice MCQs</h3>
+                        <p class="solution-description">Subject-wise multiple choice questions with answers.</p>
+                        <a class="solution-link view-solution" data-solution="practice-mcqs">Start Practice <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="health-tab">
+                <div class="solution-grid">
+                    <div class="solution-card fade-in">
+                        <div class="solution-icon">
+                            <i class="fas fa-apple-alt"></i>
+                        </div>
+                        <h3 class="solution-title">Weight Loss Diet Plan</h3>
+                        <p class="solution-description">7-day Indian diet plan for healthy weight loss.</p>
+                        <a class="solution-link view-solution" data-solution="diet-plan">View Plan <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="solution-card fade-in">
+                        <div class="solution-icon">
+                            <i class="fas fa-running"></i>
+                        </div>
+                        <h3 class="solution-title">Home Workout Routine</h3>
+                        <p class="solution-description">No-equipment exercises you can do at home.</p>
+                        <a class="solution-link view-solution" data-solution="workout-routine">See Exercises <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="solution-card fade-in">
+                        <div class="solution-icon">
+                            <i class="fas fa-head-side-virus"></i>
+                        </div>
+                        <h3 class="solution-title">Stress Relief Techniques</h3>
+                        <p class="solution-description">Simple methods to reduce stress and anxiety.</p>
+                        <a class="solution-link view-solution" data-solution="stress-relief">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="tech-tab">
+                <div class="solution-grid">
+                    <div class="solution-card fade-in">
+                        <div class="solution-icon">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <h3 class="solution-title">Computer Slow? Fix It!</h3>
+                        <p class="solution-description">Step-by-step guide to speed up your computer.</p>
+                        <a class="solution-link view-solution" data-solution="computer-slow">Read Guide <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="solution-card fade-in">
+                        <div class="solution-icon">
+                            <i class="fas fa-wifi"></i>
+                        </div>
+                        <h3 class="solution-title">Internet Connection Issues</h3>
+                        <p class="solution-description">Troubleshoot common internet problems easily.</p>
+                        <a class="solution-link view-solution" data-solution="internet-issues">Fix Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="solution-card fade-in">
+                        <div class="solution-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3 class="solution-title">Phone Battery Saving Tips</h3>
+                        <p class="solution-description">Extend your phone's battery life with these tricks.</p>
+                        <a class="solution-link view-solution" data-solution="battery-tips">Learn Tips <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="daily-tab">
+                <div class="solution-grid">
+                    <div class="solution-card fade-in">
+                        <div class="solution-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h3 class="solution-title">Quick Breakfast Recipes</h3>
+                        <p class="solution-description">Healthy breakfast ideas that take less than 15 minutes.</p>
+                        <a class="solution-link view-solution" data-solution="breakfast-recipes">See Recipes <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="solution-card fade-in">
+                        <div class="solution-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h3 class="solution-title">Home Cleaning Hacks</h3>
+                        <p class="solution-description">Time-saving cleaning tips for your entire house.</p>
+                        <a class="solution-link view-solution" data-solution="cleaning-hacks">Learn Hacks <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="solution-card fade-in">
+                        <div class="solution-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <h3 class="solution-title">Money Saving Tips</h3>
+                        <p class="solution-description">Simple ways to save money in your daily life.</p>
+                        <a class="solution-link view-solution" data-solution="money-saving">Save Money <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Emergency Section -->
+    <section id="emergency" class="emergency section">
+        <div class="container emergency-container">
+            <h2 class="emergency-title">Emergency Helplines</h2>
+            <p>Keep these numbers saved, you may need them anytime</p>
+            
+            <div class="emergency-grid">
+                <div class="emergency-card fade-in" data-number="108">
+                    <div class="emergency-icon">
+                        <i class="fas fa-ambulance"></i>
+                    </div>
+                    <div class="emergency-number">108</div>
+                    <div class="emergency-label">Emergency Ambulance</div>
+                </div>
+                <div class="emergency-card fade-in" data-number="101">
+                    <div class="emergency-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="emergency-number">101</div>
+                    <div class="emergency-label">Fire Brigade</div>
+                </div>
+                <div class="emergency-card fade-in" data-number="100">
+                    <div class="emergency-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="emergency-number">100</div>
+                    <div class="emergency-label">Police</div>
+                </div>
+                <div class="emergency-card fade-in" data-number="1091">
+                    <div class="emergency-icon">
+                        <i class="fas fa-female"></i>
+                    </div>
+                    <div class="emergency-number">1091</div>
+                    <div class="emergency-label">Women Helpline</div>
+                </div>
+            </div>
+            
+            <p><strong>Important:</strong>In any emergency situation, call the police first (100).</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>Solution Hub</h3>
+                    <p>Every Problem Has an Easy Solution – And We’re Here for You!</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#categories">Categories</a></li>
+                        <li><a href="#solutions">Solutions</a></li>
+                        <li><a href="#emergency">Emergency</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Information</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Delhi, India</li>
+                        <li><i class="fas fa-phone"></i> +91 98765 43210</li>
+                        <li><i class="fas fa-envelope"></i> help@solutionhub.com</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p>Stay updated with the latest solutions – subscribe now.</p>
+                    <div class="newsletter">
+                        <input type="email" placeholder="Aapka email address" id="newsletter-email">
+                        <button id="subscribe-btn">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Solution Hub. Easy Solutions for Every Problem. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for displaying content -->
+    <div class="modal" id="content-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Solution Details</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Content will be inserted here dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            // Update active nav link based on scroll position
+            updateActiveNavLink();
+        });
+
+        // Mobile Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        menuToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Tab functionality for solutions section
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Show corresponding content
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+            });
+        });
+
+        // Category cards click functionality
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+                showCategoryModal(category);
+            });
+        });
+
+        // Solution links click functionality
+        document.querySelectorAll('.view-solution').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const solution = this.getAttribute('data-solution');
+                showSolutionModal(solution);
+            });
+        });
+
+        // Emergency cards click functionality
+        document.querySelectorAll('.emergency-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const number = this.getAttribute('data-number');
+                showEmergencyModal(number);
+            });
+        });
+
+        // Newsletter subscription
+        document.getElementById('subscribe-btn').addEventListener('click', function() {
+            const email = document.getElementById('newsletter-email').value;
+            if (email) {
+                alert(`Thank you for subscribing with ${email}! We'll send you updates on new solutions.`);
+                document.getElementById('newsletter-email').value = '';
+            } else {
+                alert('Please enter your email address to subscribe.');
+            }
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('content-modal');
+        const closeModal = document.querySelector('.close-modal');
+        
+        closeModal.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+        
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Fade-in Animation on Scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Update active navigation link based on scroll position
+        function updateActiveNavLink() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Function to show category modal
+        function showCategoryModal(category) {
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+            
+            let title = '';
+            let content = '';
+            
+            switch(category) {
+                case 'education':
+                    title = 'Education Solutions';
+                    content = `
+                        <h4>Education mein hum kya offer karte hain:</h4>
+                        <ul>
+                            <li><strong>Notes aur Study Materials:</strong> Class 1 se 12 tak ke saare subjects ke detailed notes</li>
+                            <li><strong>MCQs aur Practice Tests:</strong> Har subject ke liye practice questions with answers</li>
+                            <li><strong>Online Quizzes:</strong> Interactive quizzes to test your knowledge</li>
+                            <li><strong>Exam Preparation Tips:</strong> Board exams aur competitive exams ke liye tips</li>
+                            <li><strong>Video Lectures:</strong> Expert teachers ke video lessons</li>
+                        </ul>
+                        <p>Koi bhi educational problem ho, humare paas uska solution hai!</p>
+                    `;
+                    break;
+                case 'health':
+                    title = 'Health & Fitness Solutions';
+                    content = `
+                        <h4>Health aur fitness ke liye humara approach:</h4>
+                        <ul>
+                            <li><strong>Diet Charts:</strong> Weight loss, weight gain, aur general health ke liye diet plans</li>
+                            <li><strong>Exercise Guides:</strong> Ghar par karne wale exercises with videos</li>
+                            <li><strong>Basic Health Information:</strong> Common health problems aur unke solutions</li>
+                            <li><strong>Home Remedies:</strong> Natural treatments for common ailments</li>
+                            <li><strong>Mental Health Resources:</strong> Stress management aur mental wellness tips</li>
+                        </ul>
+                        <p>Healthy lifestyle ki shuruaat yahan se karein!</p>
+                    `;
+                    break;
+                case 'tech':
+                    title = 'Tech Support Solutions';
+                    content = `
+                        <h4>Technology problems ka solution dene mein hum expert hain:</h4>
+                        <ul>
+                            <li><strong>Computer Problems:</strong> Slow computer, virus removal, software issues</li>
+                            <li><strong>Mobile Issues:</strong> Battery problems, app crashes, network issues</li>
+                            <li><strong>Internet Problems:</strong> Connection issues, slow speed, WiFi problems</li>
+                            <li><strong>Software Help:</strong> MS Office, Photoshop, aur dusre software ke tutorials</li>
+                            <li><strong>Gadget Reviews:</strong> New gadgets ke bare mein honest reviews</li>
+                        </ul>
+                        <p>Koi bhi tech problem ho, humare step-by-step guides se solve karein!</p>
+                    `;
+                    break;
+                case 'daily':
+                    title = 'Daily Life Solutions';
+                    content = `
+                        <h4>Rozana ki life ko asaan banane ke liye tips:</h4>
+                        <ul>
+                            <li><strong>Cooking Tips:</strong> Quick recipes, cooking techniques, kitchen hacks</li>
+                            <li><strong>Home Improvement:</strong> Cleaning hacks, organization ideas, DIY projects</li>
+                            <li><strong>Shopping Guides:</strong> Best deals, product reviews, shopping tips</li>
+                            <li><strong>Time Management:</strong> Productivity tips, schedule planning, efficiency hacks</li>
+                            <li><strong>Relationship Advice:</strong> Family, friends, aur colleagues ke saath better relationships</li>
+                        </ul>
+                        <p>Life ko simplify karein humare practical solutions ke saath!</p>
+                    `;
+                    break;
+            }
+            
+            modalTitle.textContent = title;
+            modalBody.innerHTML = content;
+            modal.style.display = 'flex';
+        }
+
+        // Function to show solution modal
+        function showSolutionModal(solution) {
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+            
+            let title = '';
+            let content = '';
+            
+            switch(solution) {
+                case 'science-notes':
+                    title = 'Class 10 Science Notes';
+                    content = `
+                        <h4>Complete Science Notes for Class 10</h4>
+                        <p>Yeh notes CBSE curriculum ke according banaye gaye hain aur har chapter ko cover karte hain:</p>
+                        <ul>
+                            <li>Chemical Reactions and Equations</li>
+                            <li>Acids, Bases and Salts</li>
+                            <li>Metals and Non-metals</li>
+                            <li>Carbon and its Compounds</li>
+                            <li>Life Processes</li>
+                            <li>Control and Coordination</li>
+                            <li>How do Organisms Reproduce?</li>
+                            <li>Heredity and Evolution</li>
+                        </ul>
+                        <p><strong>Download Options:</strong></p>
+                        <button class="cta-button" style="margin: 5px;">PDF Download</button>
+                        <button class="cta-button" style="margin: 5px;">View Online</button>
+                        <button class="cta-button" style="margin: 5px;">Print Version</button>
+                    `;
+                    break;
+                case 'diet-plan':
+                    title = 'Weight Loss Diet Plan';
+                    content = `
+                        <h4>7-Day Indian Weight Loss Diet Plan</h4>
+                        <p>Yeh diet plan specially Indian food preferences ke liye design kiya gaya hai:</p>
+                        
+                        <h5>Day 1:</h5>
+                        <ul>
+                            <li><strong>Breakfast:</strong> 2 Moong dal chilla with green chutney</li>
+                            <li><strong>Lunch:</strong> 1 bowl brown rice + dal + salad</li>
+                            <li><strong>Snack:</strong> 1 apple</li>
+                            <li><strong>Dinner:</strong> 2 roti + vegetable sabzi</li>
+                        </ul>
+                        
+                        <h5>Day 2:</h5>
+                        <ul>
+                            <li><strong>Breakfast:</strong> 1 bowl poha with vegetables</li>
+                            <li><strong>Lunch:</strong> 2 roti + chickpea curry + raita</li>
+                            <li><strong>Snack:</strong> 1 bowl sprouts</li>
+                            <li><strong>Dinner:</strong> Vegetable soup + 1 roti</li>
+                        </ul>
+                        
+                        <p>Complete 7-day plan download karne ke liye niche diye gaye button par click karein:</p>
+                        <button class="cta-button">Download Full Plan</button>
+                    `;
+                    break;
+                // Add more cases for other solutions
+                default:
+                    title = 'Solution Details';
+                    content = `<p>Yahan aapko is solution ki complete details milegi. Hum jald hi yeh feature add kar rahe hain!</p>`;
+            }
+            
+            modalTitle.textContent = title;
+            modalBody.innerHTML = content;
+            modal.style.display = 'flex';
+        }
+
+        // Function to show emergency modal
+        function showEmergencyModal(number) {
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+            
+            let title = '';
+            let content = '';
+            
+            switch(number) {
+                case '100':
+                    title = 'Police Helpline - 100';
+                    content = `
+                        <h4>Police Emergency Services</h4>
+                        <p><strong>Number:</strong> 100</p>
+                        <p><strong>When to call:</strong></p>
+                        <ul>
+                            <li>Crime ya illegal activity dekhein</li>
+                            <li>Accident ho gaya ho</li>
+                            <li>Koi aapko threaten kar raha ho</li>
+                            <li>Public disturbance ho</li>
+                            <li>Koi missing ho gaya ho</li>
+                        </ul>
+                        <p><strong>Call karne par kya karein:</strong></p>
+                        <ol>
+                            <li>Apna naam aur location batayein</li>
+                            <li>Problem briefly explain karein</li>
+                            <li>Emergency ki nature batayein</li>
+                            <li>Phone par wait karein jab tak help nahi pahunchti</li>
+                        </ol>
+                        <button class="cta-button" onclick="alert('Calling Police - 100')">Call Now</button>
+                    `;
+                    break;
+                case '108':
+                    title = 'Emergency Ambulance - 108';
+                    content = `
+                        <h4>Emergency Ambulance Service</h4>
+                        <p><strong>Number:</strong> 108</p>
+                        <p><strong>When to call:</strong></p>
+                        <ul>
+                            <li>Medical emergency ho</li>
+                            <li>Accident mein koi injured ho</li>
+                            <li>Heart attack ya stroke ka suspicion ho</li>
+                            <li>Serious injury ho gayi ho</li>
+                            <li>Koi suddenly seriously sick ho gaya ho</li>
+                        </ul>
+                        <p><strong>Important information ambulance ke liye call karte waqt:</strong></p>
+                        <ol>
+                            <li>Exact location batayein</li>
+                            <li>Patient ki condition describe karein</li>
+                            <li>Kitne log injured hain batayein</li>
+                            <li>Koi special medical condition ho to batayein</li>
+                        </ol>
+                        <button class="cta-button" onclick="alert('Calling Ambulance - 108')">Call Now</button>
+                    `;
+                    break;
+                // Add more cases for other emergency numbers
+                default:
+                    title = 'Emergency Helpline';
+                    content = `<p>Yeh emergency service aapki help ke liye hamesha available hai. Kisi bhi emergency situation mein call karein.</p>`;
+            }
+            
+            modalTitle.textContent = title;
+            modalBody.innerHTML = content;
+            modal.style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
